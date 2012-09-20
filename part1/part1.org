@@ -42,7 +42,7 @@
 
 * Schema
 
-  [[ER Diagram.png]]
+  [[file:ER Diagram.png]]
 
 ** TODO - Finish Design
    E/R diagram
