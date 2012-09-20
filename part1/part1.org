@@ -1,4 +1,5 @@
 ZhangBank
+#+AUTHOR: Ian Logan, Cameron Lopez, Anton Moczygemba, Isaac Noojin
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 
