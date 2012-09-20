@@ -1,0 +1,24 @@
+ZhangBank
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+* Description
+
+  Our application seeks to fill needs of students
+  everywhere. ZhangBank's goal is to organize a class's material
+  collectively. Students can upload lectures, notes, and study guides,
+  whatever can help the class rise up and meet the expectations of
+  their professors.
+
+  Identifiable entities include user accounts, roles, documents (of
+  many kind), document types, courses, professors, and semesters. An
+  organized way to find and view documents will be implemented, as
+  well as add content. A user profile will keep track of which courses
+  students are taking or are interested in. An nteresting problem
+  would be correctly displaying each arbitrary document. Data for our
+  application can be generated from our own courses and other free
+  online courses.
+
+* Design
+
+* Schema

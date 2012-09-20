@@ -1,0 +1,176 @@
+Part One: Requirement Specification and Conceptual Design
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+#+BEGIN_CENTER
+- Total points: 100 
+- Total Weight: 6% 
+- Due: Friday, September 21, 2012, in class.
+- Description
+#+END_CENTER
+
+In Part One, you will follow the software design methodology of a
+database application and carry out conceptual design of a database
+application and its conceptual database schema. You should identify an
+application domain and a (possibly fictional) organization in this
+application domain for which your team is to design and implement a
+database application to support its business operations. You need to
+describe the business of the organization and its business workflow;
+specify the requirements for your database application and your
+database; Specify a conceptual design of the application as a set of
+functions/procedures and a conceptual database schema as an E/R
+diagram and possibly additional constraints. We now discuss specific
+issues and requirements.
+
+* Application Domain and organization.
+
+  You should choose an application domain in which the normal operations
+  of an organization typically require to process large set of data in
+  non-trivial ways (that is, not only they retrieve data, but they also
+  update data). It is not sufficient just to browse the database or just
+  to involve a small set of data. Second, you should identify operations
+  involved in the business model or workflow of the organization that
+  naturally require to collect, update and use data. It is important to
+  include activities that cause data to change explicitly or
+  implicitly. Third, you should be able to generate or otherwise obtain
+  realistic data for the organization you identified.
+
+* Application Program
+
+  You need to be aware of the complexity of your application program. It
+  is not realistic to build a complex real-world application program in
+  this project. On the other hand, it is insufficient to develop a
+  trivial toy application, either. To design an application with an
+  appropriate complexity, you should first identify two to three types
+  of users of the application, and then identify several (e.g., 3 to 5)
+  types of activities that your program will support for each type of
+  users.
+
+* Conceptual Design of Database
+
+  Your database design should be based on a requirement analysis. You
+  should first write a description for each type of users and each type
+  of activities. Then, you should create a list of data modeling
+  requirements. Next, you will create an E/R diagram of your database
+  schema. You may have to adjust your design several times before it is
+  finalized with an appropriate complexity. I want to emphasize that a
+  good design at beginning of the project is extremely important for the
+  success of the entire project. To give you a guideline, I would
+  suggest that your E/R diagram contain about 5 entity types and a
+  similar number of relationship types. Your specific application may
+  require a slight variation to this general estimate. To the extent
+  that is appropriate to your specific application, your E/R diagram
+  should include various kinds of relationships (one-to-many,
+  many-to-many, etc.) and attributes (string, integer, etc.). However,
+  using advanced features, such as weak entity type, IS-A relationship,
+  etc., is not a requirement.
+
+
+  The following list of sample application domains may help you start
+  thinking about your project. You are encouraged to find your own
+  application domain.
+
+  Movie Rental Website: Typical entities in this domain may include
+  movies, actors, directors, genres, playing times, reviews, user
+  accounts, rental invoice, pickup and return locations and times. There
+  exist several sources on the Web where you can find data to populate a
+  database. You can support various queries such as finding specific
+  playing times, finding movies in San Antonio directed by a given
+  director. You can also support updates to movie reviews (e.g., viewers
+  giving their own opinions) and rental history. Another functionality
+  is to provide personal profiles of people (i.e., the movies they like)
+  and then try to recommend movies to them based on profiles of viewers
+  with similar tastes.
+
+  On-Line Books Store: In this domain, the entities may include books,
+  authors, and topics (which may have a complex hierarchy). You may also
+  model various attributes of the authors, the institutions they belong
+  to, etc. You can support a buy/sell service of used books, books used
+  in specific university courses. A personal profile, similar to the one
+  for movies is also a possibility. Pointing an interested buyer to a
+  web source to buy a book is also an interesting option.
+
+  Apartment Rental Website: This domain would require the modeling of
+  apartments and their properties, areas of town and their various
+  properties (e.g., bus lines, crime rate, distance from various
+  landmarks). You would provide an interface for offering apartments for
+  rent, and finding apartments. Some data can be found from local
+  newspapers, realtor web sites, and other sources.
+
+  Social Network Website: In this domain, the basic entities would be
+  users, groups, topics, friends, discussion rooms. You can model their
+  various properties and relationships. Users can create new groups,
+  start discussion on new topics, make new friends, search for users
+  with similar interests or in a specific area.
+
+* What to Hand In
+
+  Hand in a well-formatted written report that includes following items.
+
+** Cover Page
+
+   The cover page should have an interesting title of your project, your
+   assigned team ID and the names of all team members. The project title
+   should clearly identify your application domain and your application
+   program. Do not use titles such as "project 1" or "cs3743 project,
+   part 1". Your team ID is assigned after I receive the list of names of
+   your teammates.
+
+** General Description of Application Domain
+
+   In this section, you should describe your application domain, your
+   (fiction or real) organization, the business or operation of the
+   organization.. This description should be general, informative and
+   informal. You may want to point out any unique or especially difficult
+   aspect of your application. Your description will be graded on
+   content, clarity, and conciseness. (You may want to discuss it with me
+   before hand it in).
+
+** Conceptual Design of your application Program
+
+   In this section, you should describe proposed functionality of your
+   application program. You should describe the types of users of your
+   program. The functions that your program will support for different
+   types of users. To give you some idea, consider a retail business
+   domain. There may be three types of users: customers, salespersons,
+   and the shop owner. The application program may provide functions to
+   support activities for each type of users. For example, a customer can
+   use the program to find product information and prices; and to compare
+   products on some predetermined criteria. A salesperson can use the
+   program to complete sales transactions, to get customer information,
+   to check inventory, etc. A shop owner may use the program to analyze
+   sales, to check outstanding orders, and to inspect each business
+   transaction. Obviously, your database must contain necessary
+   information to support all these activities, and your application
+   program needs to implement these supports.
+
+** Conceptual Database Schema
+
+   In this section, you provide an E/R diagram of your database. You
+   should create a list of data modeling requirements, and translate it
+   into an E/R diagram that describe the schema of a database. The E/R
+   diagram should be drawn on a single piece of paper and contains
+   clearly labeled, meaningful and suitable constraints. Pay special
+   attention to follow the convention of E/R model. You should also list
+   on a separate piece of paper any business rule that cannot be
+   adequately specified in the E/R model.
+
+*** Be aware of following pitfalls in designing E/R diagram.
+
+    Design E/R diagram by translating a relational schema. People who
+    knows relational database, but are not familiar with E/R model often
+    create a relational schema first and translate it into an E/R
+    diagram. This will always give you a bad E/R model and you may come up
+    a bad design that the E/R model was designed to avoid.  Design an E/R
+    diagram to model organization structure. When design E/R diagram based
+    on data requirements, some people pay attention to organizational
+    structure rather than information needs. If you are not sure, ask
+    yourself what operations need to use the entity type or relationship
+    type, and why that type of entities or relationships need to be stored
+    in the database.  The E/R diagram should contain the entire schema.
+    You should maintain a electronic copy of the report, since it is
+    likely you will have to revise some part of your design, and you will
+    also need to include it in reports of subsequent parts of the
+    project. However, you must hand in a hard copy so I can provide you
+    feedback.
+    
