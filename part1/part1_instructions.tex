@@ -1,12 +1,41 @@
-#+TITLE: Part One: Requirement Specification and Conceptual Design
-#+AUTHOR: Weining Zhang
-#+OPTIONS: toc:nil
-#+OPTIONS: num:nil
+% Created 2012-09-20 Thu 13:03
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
 
-- Total points: 100 
-- Total Weight: 6% 
-- Due: Friday, September 21, 2012, in class.
-- Description
+\title{Part One: Requirement Specification and Conceptual Design}
+\author{Weining Zhang}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.11}}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{itemize}
+\item Total points: 100
+\item Total Weight: 6\%
+\item Due: Friday, September 21, 2012, in class.
+\item Description
+\end{itemize}
 
 In Part One, you will follow the software design methodology of a
 database application and carry out conceptual design of a database
@@ -21,7 +50,9 @@ functions/procedures and a conceptual database schema as an E/R
 diagram and possibly additional constraints. We now discuss specific
 issues and requirements.
 
-* Application Domain and organization.
+\section*{Application Domain and organization.}
+\label{sec-1}
+
 
   You should choose an application domain in which the normal operations
   of an organization typically require to process large set of data in
@@ -33,8 +64,9 @@ issues and requirements.
   include activities that cause data to change explicitly or
   implicitly. Third, you should be able to generate or otherwise obtain
   realistic data for the organization you identified.
+\section*{Application Program}
+\label{sec-2}
 
-* Application Program
 
   You need to be aware of the complexity of your application program. It
   is not realistic to build a complex real-world application program in
@@ -44,8 +76,9 @@ issues and requirements.
   of users of the application, and then identify several (e.g., 3 to 5)
   types of activities that your program will support for each type of
   users.
+\section*{Conceptual Design of Database}
+\label{sec-3}
 
-* Conceptual Design of Database
 
   Your database design should be based on a requirement analysis. You
   should first write a description for each type of users and each type
@@ -101,21 +134,24 @@ issues and requirements.
   various properties and relationships. Users can create new groups,
   start discussion on new topics, make new friends, search for users
   with similar interests or in a specific area.
+\section*{What to Hand In}
+\label{sec-4}
 
-* What to Hand In
 
   Hand in a well-formatted written report that includes following items.
+\subsection*{Cover Page}
+\label{sec-4-1}
 
-** Cover Page
 
    The cover page should have an interesting title of your project, your
    assigned team ID and the names of all team members. The project title
    should clearly identify your application domain and your application
-   program. Do not use titles such as "project 1" or "cs3743 project,
-   part 1". Your team ID is assigned after I receive the list of names of
+   program. Do not use titles such as ``project 1'' or ``cs3743 project,
+   part 1''. Your team ID is assigned after I receive the list of names of
    your teammates.
+\subsection*{General Description of Application Domain}
+\label{sec-4-2}
 
-** General Description of Application Domain
 
    In this section, you should describe your application domain, your
    (fiction or real) organization, the business or operation of the
@@ -124,8 +160,9 @@ issues and requirements.
    aspect of your application. Your description will be graded on
    content, clarity, and conciseness. (You may want to discuss it with me
    before hand it in).
+\subsection*{Conceptual Design of your application Program}
+\label{sec-4-3}
 
-** Conceptual Design of your application Program
 
    In this section, you should describe proposed functionality of your
    application program. You should describe the types of users of your
@@ -142,8 +179,9 @@ issues and requirements.
    transaction. Obviously, your database must contain necessary
    information to support all these activities, and your application
    program needs to implement these supports.
+\subsection*{Conceptual Database Schema}
+\label{sec-4-4}
 
-** Conceptual Database Schema
 
    In this section, you provide an E/R diagram of your database. You
    should create a list of data modeling requirements, and translate it
@@ -153,8 +191,9 @@ issues and requirements.
    attention to follow the convention of E/R model. You should also list
    on a separate piece of paper any business rule that cannot be
    adequately specified in the E/R model.
+\subsubsection*{Be aware of following pitfalls in designing E/R diagram.}
+\label{sec-4-4-1}
 
-*** Be aware of following pitfalls in designing E/R diagram.
 
     Design E/R diagram by translating a relational schema. People who
     knows relational database, but are not familiar with E/R model often
@@ -173,3 +212,5 @@ issues and requirements.
     project. However, you must hand in a hard copy so I can provide you
     feedback.
     
+
+\end{document}
