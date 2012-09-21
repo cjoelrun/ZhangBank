@@ -1,7 +1,9 @@
-#+Title: ZhangBank
-#+AUTHOR: Ian Logan, Cameron Lopez, Anton Moczygemba, Isaac Noojin
+#+Title:
+#+AUTHOR:
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
+#+LATEX_HEADER: \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+#+LATEX: \input{Title}
 
 * Description
 
@@ -20,21 +22,7 @@
   application can be generated from our own courses and other free
   online courses.
   
-** TODO - Isaac
-   Clean up this description. Some on what I described should go in
-   design section. Read the instructions for "General Description of
-   Application Domain" of what to hand in and make sure it has
-   everything required and is clear and consise. If you have any
-   questions about what our project is (a better FreeTestBank.com),
-   ask.
-
 * Design
-
-** TODO - Anton, Cameron, Ian, Isaac
-   Lets get down what we want our project to do. Write it down, type
-   it up, doesn't matter. Just get it to me somehow. We'll need to
-   decide what we want to implement so we can start desining our
-   schema
 
    - Functionality
    - Types of users
@@ -43,6 +31,3 @@
 * Schema
 
   [[file:ER Diagram.png]]
-
-** TODO - Finish Design
-   E/R diagram
