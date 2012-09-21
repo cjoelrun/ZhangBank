@@ -1,4 +1,4 @@
-% Created 2012-09-21 Fri 08:29
+% Created 2012-09-21 Fri 09:49
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -36,32 +36,79 @@
 \label{sec-1}
 
 
-  Our application seeks to fill needs of students
-  everywhere. ZhangBank's goal is to organize a class's material
-  collectively. Students can upload lectures, notes, and study guides,
-  whatever can help the class rise up and meet the expectations of
-  their professors.
-
-  Identifiable entities include user accounts, roles, documents (of
-  many kind), document types, courses, professors, and semesters. An
-  organized way to find and view documents will be implemented, as
-  well as add content. A user profile will keep track of which courses
-  students are taking or are interested in. An nteresting problem
-  would be correctly displaying each arbitrary document. Data for our
-  application can be generated from our own courses and other free
-  online courses.
+  Our application seeks to fill the needs of students
+  everywhere. ZhangBank's goal is to organize class material study
+  guides; basically anything that can help the class rise up and meet
+  the expectations of their Professors. Identifiable entities include
+  user accounts, Roles, Documents (in many formats), Courses,
+  Professors, and semesters. An organized way to find and view
+  Documents will be implemented, as well as add content. A user's
+  profile will keep track of which Courses students are taking or are
+  interested in. An interesting problem would be correctly displaying
+  each arbitrary Document. Data for our application can be generated
+  from our own Courses and other free online Courses.
   
 \section*{Design}
 \label{sec-2}
 
+  
+\subsection*{Users}
+\label{sec-2-1}
 
-\begin{itemize}
-\item Functionality
-\item Types of users
-\begin{itemize}
-\item Functionality of each role
-\end{itemize}
-\end{itemize}
+   
+   Each User creates a username a password during account creation, a
+   security salt is also generated with each account. User can be
+   identified uniquely by an assigned id.
+
+   All Users have one Role associated with it to allow authorization
+   of application management.  All Users can take many Courses which
+   will allow Users to keep track of the Documents of the Courses
+   they're taking. Each User can upload many Documents. The Documents
+   they own can be managed by them.
+\subsection*{Roles}
+\label{sec-2-2}
+
+
+   A list of Roles is maintained, each with different capabilities in
+   our application.  Normal Users can add and manage their own
+   Documents. An admin can manage all Documents, Courses, and
+   Professors.  It's identified by a generated id and a provided name.
+
+   Each Role can have many Users to allow roll based authorization.
+\subsection*{Documents}
+\label{sec-2-3}
+
+
+   Each Document has a type associated with it to allow the
+   application to display Documents appropriately. It stores the date
+   submitted to help with organization in the application and can be
+   uniquely identified by a generated id.
+
+   All Documents are owned by one User each, the original
+   uploader. All Documents belong to one Course each. This allows for
+   the indexing of Documents by Course.
+\subsection*{Professors}
+\label{sec-2-4}
+
+
+   The Professor entity has two primary attributes, a provided name
+   and a generated id. 
+   
+   Each Professor entity Teaches many Courses. This will allow Users
+   to run a search on a specific Professor to view Documentation for
+   any Course that he may have previously taught.
+\subsection*{Courses}
+\label{sec-2-5}
+
+
+   The Course entity has three primary attributes; a provided name, a
+   generated id and a provided course number.  
+
+   All Courses are Taught by one Professor each to allow the indexing of
+   Documents based on Professor. Each Course has many Documents to
+   provide indexing of Documents based on each Course. All Courses
+   are Taken by many Users each. This allows for Users to save which
+   classes they're taking.
 \section*{Schema}
 \label{sec-3}
 
