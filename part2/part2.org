@@ -76,3 +76,47 @@
 * Schema
 
   [[file:"ER Diagram.png]]
+
+** Users
+
+*** Functional Dependencies
+
+*** Keys
+
+*** Normal Form
+
+** Roles
+
+*** Functional Dependencies
+
+*** Keys
+
+*** Normal Form
+
+*** Keys
+
+*** Normal Form
+
+** Documents
+
+*** Functional Dependencies
+
+*** Keys
+
+*** Normal Form
+
+** Professors
+
+*** Functional Dependencies
+
+*** Keys
+
+*** Normal Form
+
+** Courses
+
+*** Functional Dependencies
+
+*** Keys
+
+*** Normal Form

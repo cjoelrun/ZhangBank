@@ -1,0 +1,32 @@
+Part Two: Logic Design
+#+AUTHOR: Weining Zhang
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+- Total Points: 100 
+- Total Weight: 6% 
+- Due: Friday, October 12, 2012, in class
+
+In this part, you will complete the logical design of a relational database for your project. This design consists of two steps. First, you will translate the E/R diagram obtained in Part One into a relational schema and then you will normalize each relation schema into a normal form. Your specific tasks are the following.
+
+Refine E/R diagram.
+You should refine your E/R model taken into consideration of my feedback and your own ideas that may enhance your E/R diagram. You should draw a new E/R diagram incorporating all the changes. The new E/R diagram will not be graded, but will be used to grade other tasks described below.
+Translate ER to Relations
+. You should use the ER-R translation methods discussed in class to translate your E/R diagram into an initial relational schema.
+Specify Functional Dependencies
+. For each table in the initial relational schema, specify a set of functional dependencies that would capture the semantics of your application data. You must identify these functional dependencies according to your specific application domain. Your primary interest will be those non-trivial functional dependencies. It is OK if you could not identify any interesting functional dependency for some simple tables. Your attention should be focused on tables with more than two attributes, especially larger ones.
+Normalize Tables
+. For each table in the initial schema, identify its normal form based on the set of functional dependencies identified in the previous task. If a relation is not in BCNF, perform the normalization as described in the class (and in the textbook). Remember to check for lossless-join and dependency-preserving properties. For each relation, you should first try to normalize it to BCNF. If failed, you should then normalize it to 3NF.
+Optionally, Combine Tables
+. Check if you may combine some of the relations without increasing redundancy. If you can, combine them.
+
+What to Hand In
+
+Hand in a well-formatted written report that includes the following items.
+
+Revised Report of Part One
+This should be a new clean copy that includes revised descriptions of your application domain and application program, and the revised ER/EER diagram.
+Relational Schema
+The final relational schema of your database. For each relation, include the schema, the list of nontrivial functional dependencies it satisfies, the list of all candidate keys, the primary key, a list of all foreign keys and where they reference to, and the normal form that the relation is in.
+Special Note
+If you have combined some relations in the last task listed above, include a special note to describe the situation. Also list and describe any constraint that your application requires, but can not be specified directly in the relational schema.
