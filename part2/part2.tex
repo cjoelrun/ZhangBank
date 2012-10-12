@@ -1,4 +1,4 @@
-% Created 2012-10-12 Fri 09:48
+% Created 2012-10-12 Fri 10:45
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -15,7 +15,6 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \tolerance=1000
-\usepackage{minted}
 \usepackage{fullpage}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
 \providecommand{\alert}[1]{\textbf{#1}}
@@ -26,7 +25,7 @@
 \hypersetup{
   pdfkeywords={},
   pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.8.11}}
+  pdfcreator={Emacs Org-mode version 7.9.2}}
 
 \begin{document}
 
@@ -169,7 +168,7 @@
 \label{sec-3-1-3}
 
 
-    
+    BCNF
 \subsection{Role}
 \label{sec-3-2}
 
@@ -195,6 +194,9 @@
     id $\rightarrow$ name
 \subsubsection{Normal Form}
 \label{sec-3-2-3}
+
+
+    BCNF
 \subsection{UserRoles}
 \label{sec-3-3}
 
@@ -222,6 +224,9 @@
     
 \subsubsection{Normal Form}
 \label{sec-3-3-3}
+
+
+    BCNF
 \subsection{Professor}
 \label{sec-3-4}
 
@@ -245,13 +250,13 @@
 
 
     id $\rightarrow$ name\\
-    name $\rightarrow$ id
-    
 \subsubsection{Normal Form}
 \label{sec-3-4-3}
+
+    
+    BCNF
 \subsection{Course}
 \label{sec-3-5}
-
 
    
 \begin{table}[htb]
@@ -275,6 +280,9 @@
     id $\rightarrow$ course\_no, name, semester
 \subsubsection{Normal Form}
 \label{sec-3-5-3}
+
+
+    BCNF
 \subsection{Takes}
 \label{sec-3-6}
 
@@ -301,6 +309,9 @@
     id $\rightarrow$ course\_id, user\_id
 \subsubsection{Normal Form}
 \label{sec-3-6-3}
+
+
+    BCNF
 \subsection{Teaches}
 \label{sec-3-7}
 
@@ -327,6 +338,9 @@
     id $\rightarrow$ course\_id, professor\_id
 \subsubsection{Normal Form}
 \label{sec-3-7-3}
+
+
+    BCNF
 \subsection{Document}
 \label{sec-3-8}
 
@@ -352,6 +366,9 @@
     id $\rightarrow$ type, date\_submitted
 \subsubsection{Normal Form}
 \label{sec-3-8-3}
+
+
+   BCNF 
 \subsection{UserDocs}
 \label{sec-3-9}
 
@@ -378,6 +395,9 @@
     document\_id $\rightarrow$ user\_id
 \subsubsection{Normal Form}
 \label{sec-3-9-3}
+
+
+    BCNF
 \subsection{Tag}
 \label{sec-3-10}
 
@@ -403,6 +423,9 @@
     id $\rightarrow$ name
 \subsubsection{Normal Form}
 \label{sec-3-10-3}
+
+
+    BCNF
 \subsection{DocTag}
 \label{sec-3-11}
 
@@ -431,5 +454,8 @@
     id $\rightarrow$ document\_id, tag\_id
 \subsubsection{Normal Form}
 \label{sec-3-11-3}
+
+
+    BCNF
 
 \end{document}

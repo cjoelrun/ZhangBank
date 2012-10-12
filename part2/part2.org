@@ -113,7 +113,7 @@
 
 *** Normal Form
 
-    
+    BCNF
 
 ** Role
 
@@ -132,7 +132,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** UserRoles
 
@@ -152,7 +152,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** Professor
 
@@ -167,15 +167,12 @@
 *** Functional Dependencies
 
     id \rightarrow name\\
-    name \rightarrow id
-    
 
 *** Normal Form
-
-
+    
+    BCNF
 
 ** Course
-
    
    #+CAPTION: Course Table
    | _id_ | course\_no. | name | semester |
@@ -192,7 +189,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** Takes
 
@@ -212,7 +209,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** Teaches
 
@@ -232,7 +229,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** Document
 
@@ -251,7 +248,7 @@
 
 *** Normal Form
 
-
+   BCNF 
 
 ** UserDocs
 
@@ -271,7 +268,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** Tag
 
@@ -290,7 +287,7 @@
 
 *** Normal Form
 
-
+    BCNF
 
 ** DocTag
 
@@ -309,5 +306,4 @@
 
 *** Normal Form
 
-
-
+    BCNF
