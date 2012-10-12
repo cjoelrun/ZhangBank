@@ -1,4 +1,4 @@
-% Created 2012-10-09 Tue 12:11
+% Created 2012-10-12 Fri 09:48
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -16,6 +16,7 @@
 \usepackage{hyperref}
 \tolerance=1000
 \usepackage{minted}
+\usepackage{fullpage}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
 \providecommand{\alert}[1]{\textbf{#1}}
 
@@ -31,9 +32,14 @@
 
 
 
+
 \input{Title}
 
-\section*{Description}
+\tableofcontents
+
+\pagebreak
+
+\section{Description}
 \label{sec-1}
 
 
@@ -49,11 +55,17 @@
   each arbitrary Document. Data for our application can be generated
   from our own Courses and other free online Courses.
   
-\section*{Design}
+\section{Design}
 \label{sec-2}
 
+
+  \begin{figure}[htb]
+  \centering
+  \includegraphics[width=.9\linewidth]{"ER Diagram.png}
+  \caption{ER Diagram}
+  \end{figure}
   
-\subsection*{Users}
+\subsection{Users}
 \label{sec-2-1}
 
    
@@ -66,7 +78,7 @@
    will allow Users to keep track of the Documents of the Courses
    they're taking. Each User can upload many Documents. The Documents
    they own can be managed by them.
-\subsection*{Roles}
+\subsection{Roles}
 \label{sec-2-2}
 
 
@@ -76,7 +88,7 @@
    Professors.  It's identified by a generated id and a provided name.
 
    Each Role can have many Users to allow roll based authorization.
-\subsection*{Documents}
+\subsection{Documents}
 \label{sec-2-3}
 
 
@@ -87,77 +99,337 @@
 
    All Documents are owned by one User each, the original
    uploader. All Documents belong to one Course each. This allows for
-   the indexing of Documents by Course.
-\subsection*{Professors}
+   the indexing of Documents by Course. All Documents can have many
+   tags each. This allows documents to be organized in a tag based
+   fashion.
+\subsection{Tags}
 \label{sec-2-4}
 
 
+   Each tag has a provided name and an id. This allows for an indexing
+   of tags by name.  Every tag has multiple Documents each. This
+   allows Documents to be organized for each course.
+\subsection{Professors}
+\label{sec-2-5}
+
+
    The Professor entity has two primary attributes, a provided name
-   and a generated id. 
+   and a generated id.
    
    Each Professor entity Teaches many Courses. This will allow Users
    to run a search on a specific Professor to view Documentation for
    any Course that he may have previously taught.
-\subsection*{Courses}
-\label{sec-2-5}
+\subsection{Courses}
+\label{sec-2-6}
 
 
-   The Course entity has three primary attributes; a provided name, a
-   generated id and a provided course number.  
+   The Course entity has four primary attributes; a provided name, a
+   generated id, the semester the course is held, and a provided
+   course number.
 
    All Courses are Taught by one Professor each to allow the indexing of
    Documents based on Professor. Each Course has many Documents to
    provide indexing of Documents based on each Course. All Courses
    are Taken by many Users each. This allows for Users to save which
    classes they're taking.
-\section*{Schema}
+\section{Schema}
 \label{sec-3}
 
 
-  \includegraphics[width=.9\linewidth]{"ER Diagram.png}
-\subsection*{Users}
+    \begin{figure}[htb]
+    \centering
+    \includegraphics[width=.9\linewidth]{Schema.png}
+    \caption{Schema Diagram}
+    \end{figure}
+\subsection{User}
 \label{sec-3-1}
-\subsubsection*{Functional Dependencies}
+
+
+\begin{table}[htb]
+\caption{User Table} 
+\begin{center}
+\begin{tabular}{llll}
+ \underline{id}  &  username  &  password  &  salt  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
 \label{sec-3-1-1}
-\subsubsection*{Keys}
+
+    
+    Primary key: id\\
+    Candidate keys: id, username\\
+\subsubsection{Functional Dependencies}
 \label{sec-3-1-2}
-\subsubsection*{Normal Form}
+
+
+    id $\rightarrow$ username, password, salt\\
+    username $\rightarrow$ id, password, salt
+\subsubsection{Normal Form}
 \label{sec-3-1-3}
-\subsection*{Roles}
+
+
+    
+\subsection{Role}
 \label{sec-3-2}
-\subsubsection*{Functional Dependencies}
+
+
+\begin{table}[htb]
+\caption{Role Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{id}  &  name  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
 \label{sec-3-2-1}
-\subsubsection*{Keys}
+
+    
+    Primary key: id\\
+    Candidate keys: id, name
+\subsubsection{Functional Dependencies}
 \label{sec-3-2-2}
-\subsubsection*{Normal Form}
+
+
+    id $\rightarrow$ name
+\subsubsection{Normal Form}
 \label{sec-3-2-3}
-\subsubsection*{Keys}
-\label{sec-3-2-4}
-\subsubsection*{Normal Form}
-\label{sec-3-2-5}
-\subsection*{Documents}
+\subsection{UserRoles}
 \label{sec-3-3}
-\subsubsection*{Functional Dependencies}
+
+
+\begin{table}[htb]
+\caption{UserRole Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{*user\_id*}  &  \textbf{role\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
 \label{sec-3-3-1}
-\subsubsection*{Keys}
+
+    
+    Primary key: user\_id\\
+    Candidate keys: user\_id\\
+    Foreign keys: user\_id $\rightarrow$ User.id, role\_id $\rightarrow$ Role.id
+\subsubsection{Functional Dependencies}
 \label{sec-3-3-2}
-\subsubsection*{Normal Form}
+
+
+    user\_id $\rightarrow$ role\_id
+    
+\subsubsection{Normal Form}
 \label{sec-3-3-3}
-\subsection*{Professors}
+\subsection{Professor}
 \label{sec-3-4}
-\subsubsection*{Functional Dependencies}
+
+
+\begin{table}[htb]
+\caption{Professor Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{id}  &  name  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
 \label{sec-3-4-1}
-\subsubsection*{Keys}
+
+    
+    Primary key: id\\
+    Candidate keys: id
+\subsubsection{Functional Dependencies}
 \label{sec-3-4-2}
-\subsubsection*{Normal Form}
+
+
+    id $\rightarrow$ name\\
+    name $\rightarrow$ id
+    
+\subsubsection{Normal Form}
 \label{sec-3-4-3}
-\subsection*{Courses}
+\subsection{Course}
 \label{sec-3-5}
-\subsubsection*{Functional Dependencies}
+
+
+   
+\begin{table}[htb]
+\caption{Course Table} 
+\begin{center}
+\begin{tabular}{llll}
+ \underline{id}  &  course\_no.  &  name  &  semester  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
 \label{sec-3-5-1}
-\subsubsection*{Keys}
+
+    
+    Primary key: id\\
+    Candidate keys: id
+\subsubsection{Functional Dependencies}
 \label{sec-3-5-2}
-\subsubsection*{Normal Form}
+
+
+    id $\rightarrow$ course\_no, name, semester
+\subsubsection{Normal Form}
 \label{sec-3-5-3}
+\subsection{Takes}
+\label{sec-3-6}
+
+
+\begin{table}[htb]
+\caption{Takes Table} 
+\begin{center}
+\begin{tabular}{lll}
+ \underline{id}  &  \textbf{course\_id}  &  \textbf{user\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-6-1}
+
+    
+    Primary key: id\\    
+    Candidate keys: id\\
+    Foreign keys: course\_id $\rightarrow$ Course.id, user\_id $\rightarrow$ User.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-6-2}
+
+
+    id $\rightarrow$ course\_id, user\_id
+\subsubsection{Normal Form}
+\label{sec-3-6-3}
+\subsection{Teaches}
+\label{sec-3-7}
+
+
+\begin{table}[htb]
+\caption{Teaches Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{*course\_id*}  &  \textbf{professor\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-7-1}
+
+    
+    Primary key: course\_id\\    
+    Candidate keys: course\_id\\
+    Foreign keys: course\_id $\rightarrow$ Couse.id , professor\_id $\rightarrow$ Professor.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-7-2}
+
+
+    id $\rightarrow$ course\_id, professor\_id
+\subsubsection{Normal Form}
+\label{sec-3-7-3}
+\subsection{Document}
+\label{sec-3-8}
+
+
+\begin{table}[htb]
+\caption{Document Table} 
+\begin{center}
+\begin{tabular}{lll}
+ \underline{id}  &  type  &  date\_submitted  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-8-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id
+\subsubsection{Functional Dependencies}
+\label{sec-3-8-2}
+
+
+    id $\rightarrow$ type, date\_submitted
+\subsubsection{Normal Form}
+\label{sec-3-8-3}
+\subsection{UserDocs}
+\label{sec-3-9}
+
+
+\begin{table}[htb]
+\caption{UserDoc Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \textbf{document\_id}  &  \textbf{user\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-9-1}
+
+    
+    Primary key: document\_id\\
+    Candidate keys: document\_id\\
+    Foreign keys: document\_id $\rightarrow$ Document.id, user\_id $\rightarrow$ User.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-9-2}
+
+
+    document\_id $\rightarrow$ user\_id
+\subsubsection{Normal Form}
+\label{sec-3-9-3}
+\subsection{Tag}
+\label{sec-3-10}
+
+
+\begin{table}[htb]
+\caption{Tag Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{id}  &  name  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-10-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id, name
+\subsubsection{Functional Dependencies}
+\label{sec-3-10-2}
+
+
+    id $\rightarrow$ name
+\subsubsection{Normal Form}
+\label{sec-3-10-3}
+\subsection{DocTag}
+\label{sec-3-11}
+
+
+\begin{table}[htb]
+\caption{DocTag Table} 
+\begin{center}
+\begin{tabular}{lll}
+ \underline{id}  &  \textbf{document\_id}  &  \textbf{tag\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+
+   
+\subsubsection{Keys}
+\label{sec-3-11-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id\\
+    Foreign keys: document\_id $\rightarrow$ Document.id, tag\_id $\rightarrow$ Tag.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-11-2}
+
+    
+    id $\rightarrow$ document\_id, tag\_id
+\subsubsection{Normal Form}
+\label{sec-3-11-3}
 
 \end{document}

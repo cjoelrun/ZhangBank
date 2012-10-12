@@ -1,9 +1,14 @@
 #+Title:
 #+AUTHOR:
 #+OPTIONS: toc:nil
-#+OPTIONS: num:nil
+#+LATEX_HEADER: \usepackage{fullpage}
 #+LATEX_HEADER: \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
-#+LATEX: \input{Title}
+
+\input{Title}
+
+\tableofcontents
+
+\pagebreak
 
 * Description
 
@@ -20,6 +25,9 @@
   from our own Courses and other free online Courses.
   
 * Design
+
+  #+CAPTION: ER Diagram
+  [[file:"ER Diagram.png]]
   
 ** Users
    
@@ -51,12 +59,20 @@
 
    All Documents are owned by one User each, the original
    uploader. All Documents belong to one Course each. This allows for
-   the indexing of Documents by Course.
+   the indexing of Documents by Course. All Documents can have many
+   tags each. This allows documents to be organized in a tag based
+   fashion.
+
+** Tags
+
+   Each tag has a provided name and an id. This allows for an indexing
+   of tags by name.  Every tag has multiple Documents each. This
+   allows Documents to be organized for each course.
 
 ** Professors
 
    The Professor entity has two primary attributes, a provided name
-   and a generated id. 
+   and a generated id.
    
    Each Professor entity Teaches many Courses. This will allow Users
    to run a search on a specific Professor to view Documentation for
@@ -64,8 +80,9 @@
 
 ** Courses
 
-   The Course entity has three primary attributes; a provided name, a
-   generated id and a provided course number.  
+   The Course entity has four primary attributes; a provided name, a
+   generated id, the semester the course is held, and a provided
+   course number.
 
    All Courses are Taught by one Professor each to allow the indexing of
    Documents based on Professor. Each Course has many Documents to
@@ -75,48 +92,222 @@
 
 * Schema
 
-  [[file:"ER Diagram.png]]
+    #+CAPTION: Schema Diagram
+    [[file:Schema.png]]
 
-** Users
+** User
+
+   #+CAPTION: User Table
+   | _id_ | username | password | salt |
+
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id, username\\
 
 *** Functional Dependencies
 
-*** Keys
+    id \rightarrow username, password, salt\\
+    username \rightarrow id, password, salt
+
 
 *** Normal Form
 
-** Roles
+    
+
+** Role
+
+   #+CAPTION: Role Table
+   | _id_ | name |
+
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id, name
 
 *** Functional Dependencies
 
-*** Keys
+    id \rightarrow name
+
 
 *** Normal Form
 
+
+
+** UserRoles
+
+   #+CAPTION: UserRole Table
+   | _*user\_id*_ | *role\_id* |
+
 *** Keys
-
-*** Normal Form
-
-** Documents
+    
+    Primary key: user\_id\\
+    Candidate keys: user\_id\\
+    Foreign keys: user\_id \rightarrow User.id, role\_id \rightarrow Role.id
 
 *** Functional Dependencies
 
-*** Keys
+    user\_id \rightarrow role\_id
+    
 
 *** Normal Form
 
-** Professors
+
+
+** Professor
+
+   #+CAPTION: Professor Table
+   | _id_ | name |
+
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id
 
 *** Functional Dependencies
 
-*** Keys
+    id \rightarrow name\\
+    name \rightarrow id
+    
 
 *** Normal Form
 
-** Courses
+
+
+** Course
+
+   
+   #+CAPTION: Course Table
+   | _id_ | course\_no. | name | semester |
+
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id
 
 *** Functional Dependencies
 
-*** Keys
+    id \rightarrow course\_no, name, semester
+
 
 *** Normal Form
+
+
+
+** Takes
+
+   #+CAPTION: Takes Table
+   | _id_ | *course\_id* | *user\_id* |
+
+*** Keys
+    
+    Primary key: id\\    
+    Candidate keys: id\\
+    Foreign keys: course\_id \rightarrow Course.id, user\_id \rightarrow User.id
+
+*** Functional Dependencies
+
+    id \rightarrow course\_id, user\_id
+
+
+*** Normal Form
+
+
+
+** Teaches
+
+   #+CAPTION: Teaches Table
+   | _*course\_id*_ | *professor\_id* |
+
+*** Keys
+    
+    Primary key: course\_id\\    
+    Candidate keys: course\_id\\
+    Foreign keys: course\_id \rightarrow Couse.id , professor\_id \rightarrow Professor.id
+
+*** Functional Dependencies
+
+    id \rightarrow course\_id, professor\_id
+
+
+*** Normal Form
+
+
+
+** Document
+
+   #+CAPTION: Document Table
+   | _id_ | type | date\_submitted |
+
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id
+
+*** Functional Dependencies
+
+    id \rightarrow type, date\_submitted
+
+
+*** Normal Form
+
+
+
+** UserDocs
+
+   #+CAPTION: UserDoc Table
+   | *document\_id* | *user\_id* |
+
+*** Keys
+    
+    Primary key: document\_id\\
+    Candidate keys: document\_id\\
+    Foreign keys: document\_id \rightarrow Document.id, user\_id \rightarrow User.id
+
+*** Functional Dependencies
+
+    document\_id \rightarrow user\_id
+
+
+*** Normal Form
+
+
+
+** Tag
+
+   #+CAPTION: Tag Table
+   | _id_ | name |
+
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id, name
+
+*** Functional Dependencies
+
+    id \rightarrow name
+
+
+*** Normal Form
+
+
+
+** DocTag
+
+   #+CAPTION: DocTag Table
+   | _id_ | *document\_id* | *tag\_id* |
+   
+*** Keys
+    
+    Primary key: id\\
+    Candidate keys: id\\
+    Foreign keys: document\_id \rightarrow Document.id, tag\_id \rightarrow Tag.id
+
+*** Functional Dependencies
+    
+    id \rightarrow document\_id, tag\_id
+
+*** Normal Form
+
+
+
