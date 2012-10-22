@@ -1,0 +1,91 @@
+Part Three: Database Creation
+#+AUTHOR: Weining Zhang
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+- Total Points: 100 
+- Total Weight: 6% 
+- Due: Friday, October 26, 2012, in class
+
+* Description
+
+  In this part, you will create a relational database for your
+  application. This includes the creation of your database in Oracle
+  and the loading of data into the database. Specifically, your need
+  to do the following.
+
+  1. Learn to Use Oracle
+
+     You need to get familiar with Oracle SQL*PLUS environment. You
+     may want to login to SQL*PLUS, learn to use various commands, try
+     out online help, and read on-line documents.
+
+  2. Refine Relational Schema
+     
+     Before creating the database, you need to refine the relational
+     schema of your database based on my feedback on your Part Two of
+     the project.
+
+  3. Define schema in Oracle 
+
+     You will convert the refined relational schema into SQL
+     statements that create tables. You need to decide SQL types for
+     attributes and constraints for tables and for columns. Here are
+     some specific requirements.
+
+    1. You should use various Oracle data types in your
+       tables. Specifically, you should have at least one attribute in
+       each of the following types: integer, real, character string of
+       fixed length, character string of a variable length, date,
+       sequence, and enumerated values (using a set).
+
+    2. Both table constraints and column constraints should be
+       specified. In addition, you should define at least one object
+       type, and one CHECK constraint.
+
+    3. You should specify primary and foreign keys.
+
+       You should keep these SQL DDL statements in a .sql script file,
+       and run it from within SQL*PLUS to create tables.
+
+  4. Load data to your database
+
+     You should use Oracle SQL*LOADER to populate tables with your
+     application data. You should provide enough data so that complex
+     queries will not always result in empty answers. As a guideline,
+     each table should have about 40 to 50 tuples. For those tables
+     that likely to be involved in multi-table SQL queries for your
+     application, make sure that tuples in different tables will
+     actually join. You do not need to worry about tables that are
+     inherently small. You do not have to make tables really big at
+     this time, you can always add more data in future.
+
+* What to Hand In
+
+  Hand in a hard copy report that contains the following items.
+
+  1. Revised Report of Part Two
+     
+     Again, include a fresh copy of the revised report of Part
+     Two. Make sure to include reports for Part One and Two with all
+     the revisions. (So that the current report gives a snapshot of
+     the current status of the project).
+
+  2. SQL Scripts 
+
+     Include a hard copy of SQL script files that you use to create
+     domains, tables, views, and sequences, and also SQL*LOADER
+     control files that you use to load your data. (Do not include the
+     data file.)
+
+  3. Spool File
+     
+     Include a spool file that illustrate a session in which you
+     successfully created your database and loaded the data into your
+     database. Please do not hand in pages after pages of data.
+
+  4. Special Note
+     
+     Include a special note to describe any business rule in the
+     application domain that can not be directly specified in the SQL
+     database schema.
