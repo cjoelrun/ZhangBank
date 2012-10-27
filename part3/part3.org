@@ -92,8 +92,8 @@
 
 * Schema
 
-    #+CAPTION: Schema Diagram
-    [[file:Schema.png]]
+  #+CAPTION: Schema Diagram
+  [[file:Schema.png]]
 
 ** User
 
@@ -248,7 +248,7 @@
 
 *** Normal Form
 
-   BCNF 
+    BCNF 
 
 ** UserDocs
 
@@ -307,3 +307,351 @@
 *** Normal Form
 
     BCNF
+    
+* Database
+  
+** User
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "USERS" 
+     (    "ID" NUMBER NOT NULL ENABLE, 
+          "SALT" VARCHAR2(45) NOT NULL ENABLE, 
+          "PW" VARCHAR2(45) NOT NULL ENABLE, 
+          "USERNAME" VARCHAR2(50) NOT NULL ENABLE, 
+           CONSTRAINT "USERS_PK" PRIMARY KEY ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_USERS" 
+    before insert on "USERS"               
+    for each row  
+  begin   
+      select "USERS_SEQ".nextval into :NEW.ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_USERS" ENABLE
+  /
+#+END_SRC
+
+** Role
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "ROLE" 
+     (    "ID" NUMBER, 
+          "NAME" VARCHAR2(45), 
+           CONSTRAINT "ROLE_PK" PRIMARY KEY ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_ROLE" 
+    before insert on "ROLE"               
+    for each row  
+  begin   
+      select "ROLE_SEQ".nextval into :NEW.ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_ROLE" ENABLE
+  /
+#+END_SRC
+
+** UserRoles
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "USERROLE" 
+     (    "USER_ID" NUMBER NOT NULL ENABLE, 
+          "ROLE_ID" NUMBER NOT NULL ENABLE, 
+           CONSTRAINT "USERROLE_PK" PRIMARY KEY ("USER_ID") ENABLE, 
+           CONSTRAINT "USERROLE_FK" FOREIGN KEY ("USER_ID")
+            REFERENCES  "USERS" ("ID") ENABLE, 
+           CONSTRAINT "USERROLE_FK2" FOREIGN KEY ("ROLE_ID")
+            REFERENCES  "ROLE" ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_USERROLE" 
+    before insert on "USERROLE"               
+    for each row  
+  begin   
+      select "USERROLE_SEQ".nextval into :NEW.USER_ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_USERROLE" ENABLE
+  /
+#+END_SRC
+
+** Professor
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "PROFESSOR" 
+     (    "NAME" VARCHAR2(50) NOT NULL ENABLE, 
+          "ID" NUMBER(*,0) NOT NULL ENABLE, 
+          "DEGREE" VARCHAR2(45), 
+           PRIMARY KEY ("ID") ENABLE
+     )
+  /
+#+END_SRC
+
+** Course
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "COURSE" 
+     (    "SEMESTER" VARCHAR2(10) NOT NULL ENABLE, 
+          "ID" NUMBER(*,0) NOT NULL ENABLE, 
+          "TITLE" VARCHAR2(45) NOT NULL ENABLE, 
+          "COURSENUMBER" VARCHAR2(45) NOT NULL ENABLE, 
+          "ACADEMICLEVEL" NUMBER, 
+          "SUBJECT" VARCHAR2(50) NOT NULL ENABLE, 
+           PRIMARY KEY ("ID") ENABLE
+     )
+  /
+#+END_SRC
+
+** Takes
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "TAKES" 
+     (    "COURSEID" NUMBER NOT NULL ENABLE, 
+          "ID" NUMBER NOT NULL ENABLE, 
+          "USERID" NUMBER NOT NULL ENABLE, 
+           CONSTRAINT "TAKES_PK" PRIMARY KEY ("ID") ENABLE, 
+           CONSTRAINT "TAKES_FK" FOREIGN KEY ("COURSEID")
+            REFERENCES  "COURSE" ("ID") ENABLE, 
+           CONSTRAINT "TAKES_FK2" FOREIGN KEY ("USERID")
+            REFERENCES  "USERS" ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_TAKES" 
+    before insert on "TAKES"               
+    for each row  
+  begin   
+      select "TAKES_SEQ".nextval into :NEW.ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_TAKES" ENABLE
+  /
+#+END_SRC
+
+** Teaches
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "TEACHES" 
+     (    "PROFID" NUMBER NOT NULL ENABLE, 
+          "COURSEID" NUMBER NOT NULL ENABLE, 
+           CONSTRAINT "TEACHES_FK" FOREIGN KEY ("PROFID")
+            REFERENCES  "PROFESSOR" ("ID") ENABLE, 
+           CONSTRAINT "TEACHES_FK2" FOREIGN KEY ("COURSEID")
+            REFERENCES  "COURSE" ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_TEACHES" 
+    before insert on "TEACHES"               
+    for each row  
+  begin   
+      select "TEACHES_SEQ".nextval into :NEW.ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_TEACHES" ENABLE
+  /
+  
+#+END_SRC
+
+** UserDocs
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "USERDOC" 
+     (    "DOCUMENT_ID" NUMBER NOT NULL ENABLE, 
+          "USER_ID" NUMBER NOT NULL ENABLE, 
+           CONSTRAINT "USERDOC_PK" PRIMARY KEY ("DOCUMENT_ID") ENABLE, 
+           CONSTRAINT "USERDOC_FK" FOREIGN KEY ("DOCUMENT_ID")
+            REFERENCES  "DOCUMENT" ("ID") ENABLE, 
+           CONSTRAINT "USERDOC_FK2" FOREIGN KEY ("USER_ID")
+            REFERENCES  "USERS" ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_USERDOC" 
+    before insert on "USERDOC"               
+    for each row  
+  begin   
+      select "USERDOC_SEQ".nextval into :NEW.DOCUMENT_ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_USERDOC" ENABLE
+  /
+#+END_SRC
+
+** Tag
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "TAG" 
+     (    "ID" NUMBER NOT NULL ENABLE, 
+          "NAME" VARCHAR2(45) NOT NULL ENABLE, 
+           CONSTRAINT "TAG_PK" PRIMARY KEY ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_TAG" 
+    before insert on "TAG"               
+    for each row  
+  begin   
+      select "TAG_SEQ".nextval into :NEW.ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_TAG" ENABLE
+  /
+#+END_SRC
+
+** DocTag
+
+#+BEGIN_SRC sql
+  CREATE TABLE  "DOCTAG" 
+     (    "ID" NUMBER NOT NULL ENABLE, 
+          "DOCUMENT_ID" NUMBER NOT NULL ENABLE, 
+          "TAG_ID" NUMBER NOT NULL ENABLE, 
+           CONSTRAINT "DOCTAG_PK" PRIMARY KEY ("ID") ENABLE, 
+           CONSTRAINT "DOCTAG_FK" FOREIGN KEY ("DOCUMENT_ID")
+            REFERENCES  "DOCUMENT" ("ID") ENABLE, 
+           CONSTRAINT "DOCTAG_FK2" FOREIGN KEY ("TAG_ID")
+            REFERENCES  "TAG" ("ID") ENABLE
+     )
+  /
+  
+  CREATE OR REPLACE TRIGGER  "BI_DOCTAG" 
+    before insert on "DOCTAG"               
+    for each row  
+  begin   
+      select "DOCTAG_SEQ".nextval into :NEW.ID from dual; 
+  end; 
+  
+  /
+  ALTER TRIGGER  "BI_DOCTAG" ENABLE
+  /
+#+END_SRC
+
+* Views
+
+** Takes
+
+#+BEGIN_SRC sql
+  select   "COURSE"."ID" as "ID",
+           "COURSE"."SEMESTER" as "SEMESTER",
+           "COURSE"."TITLE" as "TITLE",
+           "COURSE"."COURSENUMBER" as "COURSENUMBER",
+           "COURSE"."ACADEMICLEVEL" as "ACADEMICLEVEL",
+           "COURSE"."SUBJECT" as "SUBJECT",
+           "TAKES"."ID" as "ID",
+           "TAKES"."COURSEID" as "COURSEID",
+           "TAKES"."USERID" as "USERID",
+           "USERS"."ID" as "ID_1",
+           "USERS"."SALT" as "SALT",
+           "USERS"."PW" as "PW",
+           "USERS"."USERNAME" as "USERNAME" 
+   from    "USERS" "USERS",
+           "TAKES" "TAKES",
+           "COURSE" "COURSE"
+#+END_SRC   
+
+** UserDocs
+
+#+BEGIN_SRC sql
+  select   "USERS"."ID" as "ID",
+           "USERS"."PW" as "PW",
+           "USERS"."SALT" as "SALT",
+           "USERS"."USERNAME" as "USERNAME",
+           "USERDOC"."DOCUMENT_ID" as "DOCUMENT_ID",
+           "USERDOC"."USER_ID" as "USER_ID",
+           "DOCUMENT"."ID" as "ID",
+           "DOCUMENT"."TYPE" as "TYPE" 
+   from    "DOCUMENT" "DOCUMENT",
+           "USERDOC" "USERDOC",
+           "USERS" "USERS"
+#+END_SRC
+
+** Document Tags
+#+BEGIN_SRC sql
+  select   "DOCUMENT"."ID" as "ID",
+           "DOCUMENT"."TYPE" as "TYPE",
+           "DOCTAG"."ID" as "ID",
+           "DOCTAG"."DOCUMENT_ID" as "DOCUMENT_ID",
+           "DOCTAG"."TAG_ID" as "TAG_ID",
+           "TAG"."ID" as "ID_1",
+           "TAG"."NAME" as "NAME" 
+   from    "TAG" "TAG",
+           "DOCTAG" "DOCTAG",
+           "DOCUMENT" "DOCUMENT"
+#+END_SRC
+
+** Professor Documents
+
+#+BEGIN_SRC sql   
+  select   "PROFESSOR"."ID" as "ID",
+           "DOCCOURSE"."COURSEID" as "COURSEID",
+           "DOCCOURSE"."DOCID" as "DOCID",
+           "COURSE"."ID" as "ID",
+           "COURSE"."SEMESTER" as "SEMESTER",
+           "COURSE"."TITLE" as "TITLE",
+           "COURSE"."COURSENUMBER" as "COURSENUMBER",
+           "COURSE"."ACADEMICLEVEL" as "ACADEMICLEVEL",
+           "COURSE"."SUBJECT" as "SUBJECT",
+           "DOCUMENT"."ID" as "ID_1",
+           "DOCUMENT"."TYPE" as "TYPE",
+           "TEACHES"."PROFID" as "PROFID",
+           "TEACHES"."COURSEID" as "COURSEID",
+           "PROFESSOR"."NAME" as "NAME",
+           "PROFESSOR"."DEGREE" as "DEGREE" 
+   from    "DOCCOURSE" "DOCCOURSE",
+           "COURSE" "COURSE",
+           "DOCUMENT" "DOCUMENT",
+           "TEACHES" "TEACHES",
+           "PROFESSOR" "PROFESSOR" 
+  group by PROFESSOR.ID
+#+END_SRC
+
+** Course Docuements
+
+#+BEGIN_SRC sql
+  select   "DOCCOURSE"."COURSEID" as "COURSEID",
+           "DOCCOURSE"."DOCID" as "DOCID",
+           "DOCUMENT"."ID" as "ID_1",
+           "DOCUMENT"."TYPE" as "TYPE",
+           "COURSE"."ID" as "ID",
+           "COURSE"."SEMESTER" as "SEMESTER",
+           "COURSE"."TITLE" as "TITLE",
+           "COURSE"."COURSENUMBER" as "COURSENUMBER",
+           "COURSE"."ACADEMICLEVEL" as "ACADEMICLEVEL",
+           "COURSE"."SUBJECT" as "SUBJECT" 
+   from    "COURSE" "COURSE",
+           "DOCCOURSE" "DOCCOURSE",
+           "DOCUMENT" "DOCUMENT"
+#+END_SRC
+
+** User Roles
+
+#+BEGIN_SRC sql
+  select   "USERS"."ID" as "ID",
+           "USERS"."SALT" as "SALT",
+           "USERS"."PW" as "PW",
+           "USERS"."USERNAME" as "USERNAME",
+           "USERROLE"."USER_ID" as "USER_ID",
+           "USERROLE"."ROLE_ID" as "ROLE_ID",
+           "ROLE"."ID" as "ID",
+           "ROLE"."NAME" as "NAME" 
+   from    "ROLE" "ROLE",
+           "USERROLE" "USERROLE",
+           "USERS" "USERS"
+#+END_SRC
+
+* Spool
+
+  Spool doesn't exist. Here's a screenshot
+
+  [[file:Spool.png]]

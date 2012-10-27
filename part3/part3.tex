@@ -1,0 +1,845 @@
+% Created 2012-10-26 Fri 10:55
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{minted}
+\usepackage{fullpage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{}
+\author{}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.11}}
+
+\begin{document}
+
+
+
+
+\input{Title}
+
+\tableofcontents
+
+\pagebreak
+
+\section{Description}
+\label{sec-1}
+
+
+  Our application seeks to fill the needs of students
+  everywhere. ZhangBank's goal is to organize class material study
+  guides; basically anything that can help the class rise up and meet
+  the expectations of their Professors. Identifiable entities include
+  user accounts, Roles, Documents (in many formats), Courses,
+  Professors, and semesters. An organized way to find and view
+  Documents will be implemented, as well as add content. A user's
+  profile will keep track of which Courses students are taking or are
+  interested in. An interesting problem would be correctly displaying
+  each arbitrary Document. Data for our application can be generated
+  from our own Courses and other free online Courses.
+  
+\section{Design}
+\label{sec-2}
+
+
+  \begin{figure}[htb]
+  \centering
+  \includegraphics[width=.9\linewidth]{"ER Diagram.png}
+  \caption{ER Diagram}
+  \end{figure}
+  
+\subsection{Users}
+\label{sec-2-1}
+
+   
+   Each User creates a username a password during account creation, a
+   security salt is also generated with each account. User can be
+   identified uniquely by an assigned id.
+
+   All Users have one Role associated with it to allow authorization
+   of application management.  All Users can take many Courses which
+   will allow Users to keep track of the Documents of the Courses
+   they're taking. Each User can upload many Documents. The Documents
+   they own can be managed by them.
+\subsection{Roles}
+\label{sec-2-2}
+
+
+   A list of Roles is maintained, each with different capabilities in
+   our application.  Normal Users can add and manage their own
+   Documents. An admin can manage all Documents, Courses, and
+   Professors.  It's identified by a generated id and a provided name.
+
+   Each Role can have many Users to allow roll based authorization.
+\subsection{Documents}
+\label{sec-2-3}
+
+
+   Each Document has a type associated with it to allow the
+   application to display Documents appropriately. It stores the date
+   submitted to help with organization in the application and can be
+   uniquely identified by a generated id.
+
+   All Documents are owned by one User each, the original
+   uploader. All Documents belong to one Course each. This allows for
+   the indexing of Documents by Course. All Documents can have many
+   tags each. This allows documents to be organized in a tag based
+   fashion.
+\subsection{Tags}
+\label{sec-2-4}
+
+
+   Each tag has a provided name and an id. This allows for an indexing
+   of tags by name.  Every tag has multiple Documents each. This
+   allows Documents to be organized for each course.
+\subsection{Professors}
+\label{sec-2-5}
+
+
+   The Professor entity has two primary attributes, a provided name
+   and a generated id.
+   
+   Each Professor entity Teaches many Courses. This will allow Users
+   to run a search on a specific Professor to view Documentation for
+   any Course that he may have previously taught.
+\subsection{Courses}
+\label{sec-2-6}
+
+
+   The Course entity has four primary attributes; a provided name, a
+   generated id, the semester the course is held, and a provided
+   course number.
+
+   All Courses are Taught by one Professor each to allow the indexing of
+   Documents based on Professor. Each Course has many Documents to
+   provide indexing of Documents based on each Course. All Courses
+   are Taken by many Users each. This allows for Users to save which
+   classes they're taking.
+\section{Schema}
+\label{sec-3}
+
+
+  \begin{figure}[htb]
+  \centering
+  \includegraphics[width=.9\linewidth]{Schema.png}
+  \caption{Schema Diagram}
+  \end{figure}
+\subsection{User}
+\label{sec-3-1}
+
+
+\begin{table}[htb]
+\caption{User Table} 
+\begin{center}
+\begin{tabular}{llll}
+ \underline{id}  &  username  &  password  &  salt  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-1-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id, username\\
+\subsubsection{Functional Dependencies}
+\label{sec-3-1-2}
+
+
+    id $\rightarrow$ username, password, salt\\
+    username $\rightarrow$ id, password, salt
+\subsubsection{Normal Form}
+\label{sec-3-1-3}
+
+
+    BCNF
+\subsection{Role}
+\label{sec-3-2}
+
+
+\begin{table}[htb]
+\caption{Role Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{id}  &  name  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-2-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id, name
+\subsubsection{Functional Dependencies}
+\label{sec-3-2-2}
+
+
+    id $\rightarrow$ name
+\subsubsection{Normal Form}
+\label{sec-3-2-3}
+
+
+    BCNF
+\subsection{UserRoles}
+\label{sec-3-3}
+
+
+\begin{table}[htb]
+\caption{UserRole Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{*user\_id*}  &  \textbf{role\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-3-1}
+
+    
+    Primary key: user\_id\\
+    Candidate keys: user\_id\\
+    Foreign keys: user\_id $\rightarrow$ User.id, role\_id $\rightarrow$ Role.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-3-2}
+
+
+    user\_id $\rightarrow$ role\_id
+    
+\subsubsection{Normal Form}
+\label{sec-3-3-3}
+
+
+    BCNF
+\subsection{Professor}
+\label{sec-3-4}
+
+
+\begin{table}[htb]
+\caption{Professor Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{id}  &  name  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-4-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id
+\subsubsection{Functional Dependencies}
+\label{sec-3-4-2}
+
+
+    id $\rightarrow$ name\\
+\subsubsection{Normal Form}
+\label{sec-3-4-3}
+
+    
+    BCNF
+\subsection{Course}
+\label{sec-3-5}
+
+   
+\begin{table}[htb]
+\caption{Course Table} 
+\begin{center}
+\begin{tabular}{llll}
+ \underline{id}  &  course\_no.  &  name  &  semester  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-5-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id
+\subsubsection{Functional Dependencies}
+\label{sec-3-5-2}
+
+
+    id $\rightarrow$ course\_no, name, semester
+\subsubsection{Normal Form}
+\label{sec-3-5-3}
+
+
+    BCNF
+\subsection{Takes}
+\label{sec-3-6}
+
+
+\begin{table}[htb]
+\caption{Takes Table} 
+\begin{center}
+\begin{tabular}{lll}
+ \underline{id}  &  \textbf{course\_id}  &  \textbf{user\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-6-1}
+
+    
+    Primary key: id\\    
+    Candidate keys: id\\
+    Foreign keys: course\_id $\rightarrow$ Course.id, user\_id $\rightarrow$ User.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-6-2}
+
+
+    id $\rightarrow$ course\_id, user\_id
+\subsubsection{Normal Form}
+\label{sec-3-6-3}
+
+
+    BCNF
+\subsection{Teaches}
+\label{sec-3-7}
+
+
+\begin{table}[htb]
+\caption{Teaches Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{*course\_id*}  &  \textbf{professor\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-7-1}
+
+    
+    Primary key: course\_id\\    
+    Candidate keys: course\_id\\
+    Foreign keys: course\_id $\rightarrow$ Couse.id , professor\_id $\rightarrow$ Professor.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-7-2}
+
+
+    id $\rightarrow$ course\_id, professor\_id
+\subsubsection{Normal Form}
+\label{sec-3-7-3}
+
+
+    BCNF
+\subsection{Document}
+\label{sec-3-8}
+
+
+\begin{table}[htb]
+\caption{Document Table} 
+\begin{center}
+\begin{tabular}{lll}
+ \underline{id}  &  type  &  date\_submitted  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-8-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id
+\subsubsection{Functional Dependencies}
+\label{sec-3-8-2}
+
+
+    id $\rightarrow$ type, date\_submitted
+\subsubsection{Normal Form}
+\label{sec-3-8-3}
+
+
+    BCNF 
+\subsection{UserDocs}
+\label{sec-3-9}
+
+
+\begin{table}[htb]
+\caption{UserDoc Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \textbf{document\_id}  &  \textbf{user\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-9-1}
+
+    
+    Primary key: document\_id\\
+    Candidate keys: document\_id\\
+    Foreign keys: document\_id $\rightarrow$ Document.id, user\_id $\rightarrow$ User.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-9-2}
+
+
+    document\_id $\rightarrow$ user\_id
+\subsubsection{Normal Form}
+\label{sec-3-9-3}
+
+
+    BCNF
+\subsection{Tag}
+\label{sec-3-10}
+
+
+\begin{table}[htb]
+\caption{Tag Table} 
+\begin{center}
+\begin{tabular}{ll}
+ \underline{id}  &  name  \\
+\end{tabular}
+\end{center}
+\end{table}
+\subsubsection{Keys}
+\label{sec-3-10-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id, name
+\subsubsection{Functional Dependencies}
+\label{sec-3-10-2}
+
+
+    id $\rightarrow$ name
+\subsubsection{Normal Form}
+\label{sec-3-10-3}
+
+
+    BCNF
+\subsection{DocTag}
+\label{sec-3-11}
+
+
+\begin{table}[htb]
+\caption{DocTag Table} 
+\begin{center}
+\begin{tabular}{lll}
+ \underline{id}  &  \textbf{document\_id}  &  \textbf{tag\_id}  \\
+\end{tabular}
+\end{center}
+\end{table}
+
+   
+\subsubsection{Keys}
+\label{sec-3-11-1}
+
+    
+    Primary key: id\\
+    Candidate keys: id\\
+    Foreign keys: document\_id $\rightarrow$ Document.id, tag\_id $\rightarrow$ Tag.id
+\subsubsection{Functional Dependencies}
+\label{sec-3-11-2}
+
+    
+    id $\rightarrow$ document\_id, tag\_id
+\subsubsection{Normal Form}
+\label{sec-3-11-3}
+
+
+    BCNF
+    
+\section{Database}
+\label{sec-4}
+
+  
+\subsection{User}
+\label{sec-4-1}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "USERS" 
+   (    "ID" NUMBER NOT NULL ENABLE, 
+        "SALT" VARCHAR2(45) NOT NULL ENABLE, 
+        "PW" VARCHAR2(45) NOT NULL ENABLE, 
+        "USERNAME" VARCHAR2(50) NOT NULL ENABLE, 
+         CONSTRAINT "USERS_PK" PRIMARY KEY ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_USERS" 
+  before insert on "USERS"               
+  for each row  
+begin   
+    select "USERS_SEQ".nextval into :NEW.ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_USERS" ENABLE
+/
+\end{minted}
+\subsection{Role}
+\label{sec-4-2}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "ROLE" 
+   (    "ID" NUMBER, 
+        "NAME" VARCHAR2(45), 
+         CONSTRAINT "ROLE_PK" PRIMARY KEY ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_ROLE" 
+  before insert on "ROLE"               
+  for each row  
+begin   
+    select "ROLE_SEQ".nextval into :NEW.ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_ROLE" ENABLE
+/
+\end{minted}
+\subsection{UserRoles}
+\label{sec-4-3}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "USERROLE" 
+   (    "USER_ID" NUMBER NOT NULL ENABLE, 
+        "ROLE_ID" NUMBER NOT NULL ENABLE, 
+         CONSTRAINT "USERROLE_PK" PRIMARY KEY ("USER_ID") ENABLE, 
+         CONSTRAINT "USERROLE_FK" FOREIGN KEY ("USER_ID")
+          REFERENCES  "USERS" ("ID") ENABLE, 
+         CONSTRAINT "USERROLE_FK2" FOREIGN KEY ("ROLE_ID")
+          REFERENCES  "ROLE" ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_USERROLE" 
+  before insert on "USERROLE"               
+  for each row  
+begin   
+    select "USERROLE_SEQ".nextval into :NEW.USER_ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_USERROLE" ENABLE
+/
+\end{minted}
+\subsection{Professor}
+\label{sec-4-4}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "PROFESSOR" 
+   (    "NAME" VARCHAR2(50) NOT NULL ENABLE, 
+        "ID" NUMBER(*,0) NOT NULL ENABLE, 
+        "DEGREE" VARCHAR2(45), 
+         PRIMARY KEY ("ID") ENABLE
+   )
+/
+\end{minted}
+\subsection{Course}
+\label{sec-4-5}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "COURSE" 
+   (    "SEMESTER" VARCHAR2(10) NOT NULL ENABLE, 
+        "ID" NUMBER(*,0) NOT NULL ENABLE, 
+        "TITLE" VARCHAR2(45) NOT NULL ENABLE, 
+        "COURSENUMBER" VARCHAR2(45) NOT NULL ENABLE, 
+        "ACADEMICLEVEL" NUMBER, 
+        "SUBJECT" VARCHAR2(50) NOT NULL ENABLE, 
+         PRIMARY KEY ("ID") ENABLE
+   )
+/
+\end{minted}
+\subsection{Takes}
+\label{sec-4-6}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "TAKES" 
+   (    "COURSEID" NUMBER NOT NULL ENABLE, 
+        "ID" NUMBER NOT NULL ENABLE, 
+        "USERID" NUMBER NOT NULL ENABLE, 
+         CONSTRAINT "TAKES_PK" PRIMARY KEY ("ID") ENABLE, 
+         CONSTRAINT "TAKES_FK" FOREIGN KEY ("COURSEID")
+          REFERENCES  "COURSE" ("ID") ENABLE, 
+         CONSTRAINT "TAKES_FK2" FOREIGN KEY ("USERID")
+          REFERENCES  "USERS" ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_TAKES" 
+  before insert on "TAKES"               
+  for each row  
+begin   
+    select "TAKES_SEQ".nextval into :NEW.ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_TAKES" ENABLE
+/
+\end{minted}
+\subsection{Teaches}
+\label{sec-4-7}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "TEACHES" 
+   (    "PROFID" NUMBER NOT NULL ENABLE, 
+        "COURSEID" NUMBER NOT NULL ENABLE, 
+         CONSTRAINT "TEACHES_FK" FOREIGN KEY ("PROFID")
+          REFERENCES  "PROFESSOR" ("ID") ENABLE, 
+         CONSTRAINT "TEACHES_FK2" FOREIGN KEY ("COURSEID")
+          REFERENCES  "COURSE" ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_TEACHES" 
+  before insert on "TEACHES"               
+  for each row  
+begin   
+    select "TEACHES_SEQ".nextval into :NEW.ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_TEACHES" ENABLE
+/
+\end{minted}
+\subsection{UserDocs}
+\label{sec-4-8}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "USERDOC" 
+   (    "DOCUMENT_ID" NUMBER NOT NULL ENABLE, 
+        "USER_ID" NUMBER NOT NULL ENABLE, 
+         CONSTRAINT "USERDOC_PK" PRIMARY KEY ("DOCUMENT_ID") ENABLE, 
+         CONSTRAINT "USERDOC_FK" FOREIGN KEY ("DOCUMENT_ID")
+          REFERENCES  "DOCUMENT" ("ID") ENABLE, 
+         CONSTRAINT "USERDOC_FK2" FOREIGN KEY ("USER_ID")
+          REFERENCES  "USERS" ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_USERDOC" 
+  before insert on "USERDOC"               
+  for each row  
+begin   
+    select "USERDOC_SEQ".nextval into :NEW.DOCUMENT_ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_USERDOC" ENABLE
+/
+\end{minted}
+\subsection{Tag}
+\label{sec-4-9}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "TAG" 
+   (    "ID" NUMBER NOT NULL ENABLE, 
+        "NAME" VARCHAR2(45) NOT NULL ENABLE, 
+         CONSTRAINT "TAG_PK" PRIMARY KEY ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_TAG" 
+  before insert on "TAG"               
+  for each row  
+begin   
+    select "TAG_SEQ".nextval into :NEW.ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_TAG" ENABLE
+/
+\end{minted}
+\subsection{DocTag}
+\label{sec-4-10}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+CREATE TABLE  "DOCTAG" 
+   (    "ID" NUMBER NOT NULL ENABLE, 
+        "DOCUMENT_ID" NUMBER NOT NULL ENABLE, 
+        "TAG_ID" NUMBER NOT NULL ENABLE, 
+         CONSTRAINT "DOCTAG_PK" PRIMARY KEY ("ID") ENABLE, 
+         CONSTRAINT "DOCTAG_FK" FOREIGN KEY ("DOCUMENT_ID")
+          REFERENCES  "DOCUMENT" ("ID") ENABLE, 
+         CONSTRAINT "DOCTAG_FK2" FOREIGN KEY ("TAG_ID")
+          REFERENCES  "TAG" ("ID") ENABLE
+   )
+/
+
+CREATE OR REPLACE TRIGGER  "BI_DOCTAG" 
+  before insert on "DOCTAG"               
+  for each row  
+begin   
+    select "DOCTAG_SEQ".nextval into :NEW.ID from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_DOCTAG" ENABLE
+/
+\end{minted}
+\section{Views}
+\label{sec-5}
+\subsection{Takes}
+\label{sec-5-1}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+select   "COURSE"."ID" as "ID",
+         "COURSE"."SEMESTER" as "SEMESTER",
+         "COURSE"."TITLE" as "TITLE",
+         "COURSE"."COURSENUMBER" as "COURSENUMBER",
+         "COURSE"."ACADEMICLEVEL" as "ACADEMICLEVEL",
+         "COURSE"."SUBJECT" as "SUBJECT",
+         "TAKES"."ID" as "ID",
+         "TAKES"."COURSEID" as "COURSEID",
+         "TAKES"."USERID" as "USERID",
+         "USERS"."ID" as "ID_1",
+         "USERS"."SALT" as "SALT",
+         "USERS"."PW" as "PW",
+         "USERS"."USERNAME" as "USERNAME" 
+ from    "USERS" "USERS",
+         "TAKES" "TAKES",
+         "COURSE" "COURSE"
+\end{minted}
+\subsection{UserDocs}
+\label{sec-5-2}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+select   "USERS"."ID" as "ID",
+         "USERS"."PW" as "PW",
+         "USERS"."SALT" as "SALT",
+         "USERS"."USERNAME" as "USERNAME",
+         "USERDOC"."DOCUMENT_ID" as "DOCUMENT_ID",
+         "USERDOC"."USER_ID" as "USER_ID",
+         "DOCUMENT"."ID" as "ID",
+         "DOCUMENT"."TYPE" as "TYPE" 
+ from    "DOCUMENT" "DOCUMENT",
+         "USERDOC" "USERDOC",
+         "USERS" "USERS"
+\end{minted}
+\subsection{Document Tags}
+\label{sec-5-3}
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+select   "DOCUMENT"."ID" as "ID",
+         "DOCUMENT"."TYPE" as "TYPE",
+         "DOCTAG"."ID" as "ID",
+         "DOCTAG"."DOCUMENT_ID" as "DOCUMENT_ID",
+         "DOCTAG"."TAG_ID" as "TAG_ID",
+         "TAG"."ID" as "ID_1",
+         "TAG"."NAME" as "NAME" 
+ from    "TAG" "TAG",
+         "DOCTAG" "DOCTAG",
+         "DOCUMENT" "DOCUMENT"
+\end{minted}
+\subsection{Professor Documents}
+\label{sec-5-4}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+select   "PROFESSOR"."ID" as "ID",
+         "DOCCOURSE"."COURSEID" as "COURSEID",
+         "DOCCOURSE"."DOCID" as "DOCID",
+         "COURSE"."ID" as "ID",
+         "COURSE"."SEMESTER" as "SEMESTER",
+         "COURSE"."TITLE" as "TITLE",
+         "COURSE"."COURSENUMBER" as "COURSENUMBER",
+         "COURSE"."ACADEMICLEVEL" as "ACADEMICLEVEL",
+         "COURSE"."SUBJECT" as "SUBJECT",
+         "DOCUMENT"."ID" as "ID_1",
+         "DOCUMENT"."TYPE" as "TYPE",
+         "TEACHES"."PROFID" as "PROFID",
+         "TEACHES"."COURSEID" as "COURSEID",
+         "PROFESSOR"."NAME" as "NAME",
+         "PROFESSOR"."DEGREE" as "DEGREE" 
+ from    "DOCCOURSE" "DOCCOURSE",
+         "COURSE" "COURSE",
+         "DOCUMENT" "DOCUMENT",
+         "TEACHES" "TEACHES",
+         "PROFESSOR" "PROFESSOR" 
+group by PROFESSOR.ID
+\end{minted}
+\subsection{Course Docuements}
+\label{sec-5-5}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+select   "DOCCOURSE"."COURSEID" as "COURSEID",
+         "DOCCOURSE"."DOCID" as "DOCID",
+         "DOCUMENT"."ID" as "ID_1",
+         "DOCUMENT"."TYPE" as "TYPE",
+         "COURSE"."ID" as "ID",
+         "COURSE"."SEMESTER" as "SEMESTER",
+         "COURSE"."TITLE" as "TITLE",
+         "COURSE"."COURSENUMBER" as "COURSENUMBER",
+         "COURSE"."ACADEMICLEVEL" as "ACADEMICLEVEL",
+         "COURSE"."SUBJECT" as "SUBJECT" 
+ from    "COURSE" "COURSE",
+         "DOCCOURSE" "DOCCOURSE",
+         "DOCUMENT" "DOCUMENT"
+\end{minted}
+\subsection{User Roles}
+\label{sec-5-6}
+
+
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+select   "USERS"."ID" as "ID",
+         "USERS"."SALT" as "SALT",
+         "USERS"."PW" as "PW",
+         "USERS"."USERNAME" as "USERNAME",
+         "USERROLE"."USER_ID" as "USER_ID",
+         "USERROLE"."ROLE_ID" as "ROLE_ID",
+         "ROLE"."ID" as "ID",
+         "ROLE"."NAME" as "NAME" 
+ from    "ROLE" "ROLE",
+         "USERROLE" "USERROLE",
+         "USERS" "USERS"
+\end{minted}
+\section{Spool}
+\label{sec-6}
+
+
+  Spool doesn't exist. Here's a screenshot
+
+  \includegraphics[width=.9\linewidth]{Spool.png}
+
+\end{document}
