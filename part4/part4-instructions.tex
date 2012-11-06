@@ -1,0 +1,149 @@
+% Created 2012-10-31 Wed 09:29
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{minted}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Part Four: Database Testing}
+\author{Weining Zhang}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.11}}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{itemize}
+\item Total Points: 100
+\item Total Weight: 6\%
+\item Due: Friday, November 9, 2012, in class
+\end{itemize}
+
+\section*{Description}
+\label{sec-1}
+
+
+  In this part, you will use Oracle to test and to manipulate your
+  database. The purpose are two-folds. First, to design SQL queries
+  that will eventually be included in the implementation of your
+  application program. Second, to make sure the data in your database
+  is sufficient for testing your application. Specifically, you need
+  to do the following.
+
+\begin{enumerate}
+\item Learn SQL*PLUS
+
+     You should try SQL*PLUS commands and SQL statements
+     interactively, run SQL statements from a script file, and edit
+     and run commands from the command buffer.
+\item Test SQL Queries
+
+     You should write and test at least 10 interesting, non-trivial
+     SQL queries on your database. Ideally, the queries should include
+     the ones you plan to use in your application program to implement
+     services for users. Nevertheless, you should include at least one
+     query in each of the following query types. Of course, some of
+     your queries may be in more than one type.
+\begin{enumerate}
+\item Multiple table query;
+\item Nested query (both correlated and not correlated);
+\item Query using Union, Intersect, and minus;
+\item Query using exist, not exist, IN, NOT IN, ALL, etc.;
+\item Query with aggregate functions, group by, sort by, and having;
+\item Query that has a complex from clause; and
+\item Query using a view.
+\end{enumerate}
+\item Database Update
+     
+     You should use SQL to make at least two updates of each of the
+     following types:
+\begin{enumerate}
+\item Insert tuples to a table (both single tuple and by a query);
+\item Delete tuples from a table (both single tuple and by a query);
+\item Updates that changes existing tuples (both single tuple and by
+        a query); and
+\item Updates that cause a trigger to be fired.
+\end{enumerate}
+\item Additional Schema Objects
+
+     In addition to what you already have, you will add some new
+     features to your database and test these features. More
+     specifically, you need to do the following.
+\begin{enumerate}
+\item Design at least one view that accesses two or more base tables.
+\item Design and test at least one trigger.
+\item Design and perform some experiments to investigate view
+        update. These experiments should try to perform various types
+        of update on various type of views, and investigate if and how
+        data can be updated through using views.
+\end{enumerate}
+\end{enumerate}
+
+  While you are doing this part, keep in mind the following:
+  
+\begin{itemize}
+\item Test queries that can be used in your application program. Think
+    how to retrieve data to provide services of your application
+    program.
+\item Specify each query in different ways. It is well known that a
+    query can be expressed in many ways in SQL. Pay attention to
+    whether a result contains duplicate.
+\item Make sure that your interesting non-trivial queries get non-empty
+    answers. Add more data to your database if necessary.
+\item Come up with each query in English first and then translate it
+    into SQL.
+\end{itemize}
+\section*{What to Hand In}
+\label{sec-2}
+
+
+Hand in a well-formatted written report that includes the following
+items.
+
+\begin{enumerate}
+\item Revised report of Part Three
+
+   This should be a fresh copy of Part Three incorporating all changes
+   to all previous parts.
+\item SQL Queries
+   
+   A list of your SQL queries. For each query, list the English
+   version followed immediately by the SQL statements. These queries
+   will be graded based on if they are interesting and if they are
+   correct with respect to their English statements.
+\item Views and Triggers
+
+   A list of SQL statements that define your view and trigger.
+\item Spool File
+
+   A spool file that illustrates a successful execution of your
+   queries, updates, views and triggers. Do not include answers that
+   contain many pages of data. For updates, show the relevant data
+   before and after the execution of your update commands.
+\item View Investigation
+   
+   Include a two-page report describing your experiments with view
+   update including the design of the experiments, your observations,
+   and your conclusions. This report will be graded based on the
+   design of experiments and on the quality of the technical writing.
+\end{enumerate}
+
+\end{document}
