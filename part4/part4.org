@@ -27,7 +27,7 @@
 * Design
 
   #+CAPTION: ER Diagram
-  [[file:"ER Diagram.png]]
+  [[file:ERDiagram.png]]
   
 ** Users
    
@@ -90,12 +90,12 @@
    are Taken by many Users each. This allows for Users to save which
    classes they're taking.
 
-* Schema
+* Relational Schema
 
   #+CAPTION: Schema Diagram
   [[file:Schema.png]]
 
-** User
+** User Table
 
    #+CAPTION: User Table
    | _id_ | username | password | salt |
@@ -115,7 +115,7 @@
 
     BCNF
 
-** Role
+** Role Table
 
    #+CAPTION: Role Table
    | _id_ | name |
@@ -134,7 +134,7 @@
 
     BCNF
 
-** UserRoles
+** UserRoles Table
 
    #+CAPTION: UserRole Table
    | _*user\_id*_ | *role\_id* |
@@ -154,7 +154,7 @@
 
     BCNF
 
-** Professor
+** Professor Table
 
    #+CAPTION: Professor Table
    | _id_ | name |
@@ -172,7 +172,7 @@
     
     BCNF
 
-** Course
+** Course Table
    
    #+CAPTION: Course Table
    | _id_ | course\_no. | name | semester |
@@ -191,7 +191,7 @@
 
     BCNF
 
-** Takes
+** Takes Table
 
    #+CAPTION: Takes Table
    | _id_ | *course\_id* | *user\_id* |
@@ -211,7 +211,7 @@
 
     BCNF
 
-** Teaches
+** Teaches Table
 
    #+CAPTION: Teaches Table
    | _*course\_id*_ | *professor\_id* |
@@ -231,7 +231,7 @@
 
     BCNF
 
-** Document
+** Document Table
 
    #+CAPTION: Document Table
    | _id_ | type | date\_submitted |
@@ -250,7 +250,7 @@
 
     BCNF 
 
-** UserDocs
+** UserDocs Table
 
    #+CAPTION: UserDoc Table
    | *document\_id* | *user\_id* |
@@ -270,7 +270,7 @@
 
     BCNF
 
-** Tag
+** Tag Table
 
    #+CAPTION: Tag Table
    | _id_ | name |
@@ -289,7 +289,7 @@
 
     BCNF
 
-** DocTag
+** DocTag Table
 
    #+CAPTION: DocTag Table
    | _id_ | *document\_id* | *tag\_id* |
@@ -651,7 +651,290 @@
 #+END_SRC
 
 * Spool
-
-  Spool doesn't exist. Here's a screenshot
-
-  [[file:Spool.png]]
+  
+#+BEGIN_EXAMPLE
+  SQL>   CREATE TABLE  "USERS"
+    2       (    "ID" NUMBER NOT NULL ENABLE,
+    3            "SALT" VARCHAR2(45) NOT NULL ENABLE,
+    4            "PW" VARCHAR2(45) NOT NULL ENABLE,
+    5            "USERNAME" VARCHAR2(50) NOT NULL ENABLE,
+    6             CONSTRAINT "USERS_PK" PRIMARY KEY ("ID") ENABLE
+    7       )
+    8    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_USERS"
+    2      before insert on "USERS"
+    3      for each row
+    4    begin
+    5        select "USERS_SEQ".nextval into :NEW.ID from dual;
+    6    end;
+    7  
+    8    /
+  
+  Warning: Trigger created with compilation errors.
+  
+  SQL>   ALTER TRIGGER  "BI_USERS" ENABLE
+    2    /
+  
+  Trigger altered.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "ROLE"
+    2       (    "ID" NUMBER,
+    3            "NAME" VARCHAR2(45),
+    4             CONSTRAINT "ROLE_PK" PRIMARY KEY ("ID") ENABLE
+    5       )
+    6    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_ROLE"
+    2      before insert on "ROLE"
+    3      for each row
+    4    begin
+    5        select "ROLE_SEQ".nextval into :NEW.ID from dual;
+    6    end;
+    7  
+    8    /
+  
+  Warning: Trigger created with compilation errors.
+  
+  SQL>   ALTER TRIGGER  "BI_ROLE" ENABLE
+    2    /
+  
+  Trigger altered.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "USERROLE"
+    2       (    "USER_ID" NUMBER NOT NULL ENABLE,
+    3            "ROLE_ID" NUMBER NOT NULL ENABLE,
+    4             CONSTRAINT "USERROLE_PK" PRIMARY KEY ("USER_ID") ENABLE,
+    5             CONSTRAINT "USERROLE_FK" FOREIGN KEY ("USER_ID")
+    6              REFERENCES  "USERS" ("ID") ENABLE,
+    7             CONSTRAINT "USERROLE_FK2" FOREIGN KEY ("ROLE_ID")
+    8              REFERENCES  "ROLE" ("ID") ENABLE
+    9       )
+   10    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_USERROLE"
+    2      before insert on "USERROLE"
+    3      for each row
+    4    begin
+    5        select "USERROLE_SEQ".nextval into :NEW.USER_ID from dual;
+    6    end;
+    7  
+    8    /
+  
+  Warning: Trigger created with compilation errors.
+  
+  SQL>   ALTER TRIGGER  "BI_USERROLE" ENABLE
+    2    /
+  
+  Trigger altered.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "PROFESSOR"
+    2       (    "NAME" VARCHAR2(50) NOT NULL ENABLE,
+    3            "ID" NUMBER(*,0) NOT NULL ENABLE,
+    4            "DEGREE" VARCHAR2(45),
+    5             PRIMARY KEY ("ID") ENABLE
+    6       )
+    7    /
+  
+  Table created.
+  
+  SQL> 
+  SQL> #+BEGIN_SRC sql
+  SP2-0734: unknown command beginning "+BEGIN_SRC..." - rest of line ignored.
+  SQL>   CREATE TABLE  "COURSE"
+    2       (    "SEMESTER" VARCHAR2(10) NOT NULL ENABLE,
+    3            "ID" NUMBER(*,0) NOT NULL ENABLE,
+    4            "TITLE" VARCHAR2(45) NOT NULL ENABLE,
+    5            "COURSENUMBER" VARCHAR2(45) NOT NULL ENABLE,
+    6            "ACADEMICLEVEL" NUMBER,
+    7            "SUBJECT" VARCHAR2(50) NOT NULL ENABLE,
+    8             PRIMARY KEY ("ID") ENABLE
+    9       )
+   10    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "TAKES"
+    2       (    "COURSEID" NUMBER NOT NULL ENABLE,
+    3            "ID" NUMBER NOT NULL ENABLE,
+    4            "USERID" NUMBER NOT NULL ENABLE,
+    5             CONSTRAINT "TAKES_PK" PRIMARY KEY ("ID") ENABLE,
+    6             CONSTRAINT "TAKES_FK" FOREIGN KEY ("COURSEID")
+    7              REFERENCES  "COURSE" ("ID") ENABLE,
+    8             CONSTRAINT "TAKES_FK2" FOREIGN KEY ("USERID")
+    9              REFERENCES  "USERS" ("ID") ENABLE
+   10       )
+   11    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_TAKES"
+    2      before insert on "TAKES"
+    3      for each row
+    4    begin
+    5        select "TAKES_SEQ".nextval into :NEW.ID from dual;
+    6    end;
+    7  
+    8    /
+  
+  Warning: Trigger created with compilation errors.
+  
+  SQL>   ALTER TRIGGER  "BI_TAKES" ENABLE
+    2    /
+  
+  Trigger altered.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "TEACHES"
+    2       (    "PROFID" NUMBER NOT NULL ENABLE,
+    3            "COURSEID" NUMBER NOT NULL ENABLE,
+    4             CONSTRAINT "TEACHES_FK" FOREIGN KEY ("PROFID")
+    5              REFERENCES  "PROFESSOR" ("ID") ENABLE,
+    6             CONSTRAINT "TEACHES_FK2" FOREIGN KEY ("COURSEID")
+    7              REFERENCES  "COURSE" ("ID") ENABLE
+    8       )
+    9    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_TEACHES"
+    2      before insert on "TEACHES"
+    3      for each row
+    4    begin
+    5        select "TEACHES_SEQ".nextval into :NEW.ID from dual;
+    6    end;
+    7  
+    8    /
+  
+  Warning: Trigger created with compilation errors.
+  
+  SQL>   ALTER TRIGGER  "BI_TEACHES" ENABLE
+    2    /
+  
+  Trigger altered.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "USERDOC"
+    2       (    "DOCUMENT_ID" NUMBER NOT NULL ENABLE,
+    3            "USER_ID" NUMBER NOT NULL ENABLE,
+    4             CONSTRAINT "USERDOC_PK" PRIMARY KEY ("DOCUMENT_ID") ENABLE,
+    5             CONSTRAINT "USERDOC_FK" FOREIGN KEY ("DOCUMENT_ID")
+    6              REFERENCES  "DOCUMENT" ("ID") ENABLE,
+    7             CONSTRAINT "USERDOC_FK2" FOREIGN KEY ("USER_ID")
+    8              REFERENCES  "USERS" ("ID") ENABLE
+    9       )
+   10    /
+              REFERENCES  "DOCUMENT" ("ID") ENABLE,
+                          *
+  ERROR at line 6:
+  ORA-00942: table or view does not exist 
+  
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_USERDOC"
+    2      before insert on "USERDOC"
+    3      for each row
+    4    begin
+    5        select "USERDOC_SEQ".nextval into :NEW.DOCUMENT_ID from dual;
+    6    end;
+    7  
+    8    /
+      before insert on "USERDOC"
+                       *
+  ERROR at line 2:
+  ORA-00942: table or view does not exist 
+  
+  
+  SQL>   ALTER TRIGGER  "BI_USERDOC" ENABLE
+    2    /
+    ALTER TRIGGER  "BI_USERDOC" ENABLE
+  ,*
+  ERROR at line 1:
+  ORA-04080: trigger 'BI_USERDOC' does not exist 
+  
+  
+  SQL> 
+  SQL>   CREATE TABLE  "TAG"
+    2       (    "ID" NUMBER NOT NULL ENABLE,
+    3            "NAME" VARCHAR2(45) NOT NULL ENABLE,
+    4             CONSTRAINT "TAG_PK" PRIMARY KEY ("ID") ENABLE
+    5       )
+    6    /
+  
+  Table created.
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_TAG"
+    2      before insert on "TAG"
+    3      for each row
+    4    begin
+    5        select "TAG_SEQ".nextval into :NEW.ID from dual;
+    6    end;
+    7  
+    8    /
+  
+  Warning: Trigger created with compilation errors.
+  
+  SQL>   ALTER TRIGGER  "BI_TAG" ENABLE
+    2    /
+  
+  Trigger altered.
+  
+  SQL> 
+  SQL>   CREATE TABLE  "DOCTAG"
+    2       (    "ID" NUMBER NOT NULL ENABLE,
+    3            "DOCUMENT_ID" NUMBER NOT NULL ENABLE,
+    4            "TAG_ID" NUMBER NOT NULL ENABLE,
+    5             CONSTRAINT "DOCTAG_PK" PRIMARY KEY ("ID") ENABLE,
+    6             CONSTRAINT "DOCTAG_FK" FOREIGN KEY ("DOCUMENT_ID")
+    7              REFERENCES  "DOCUMENT" ("ID") ENABLE,
+    8             CONSTRAINT "DOCTAG_FK2" FOREIGN KEY ("TAG_ID")
+    9              REFERENCES  "TAG" ("ID") ENABLE
+   10       )
+   11    /
+              REFERENCES  "DOCUMENT" ("ID") ENABLE,
+                          *
+  ERROR at line 7:
+  ORA-00942: table or view does not exist 
+  
+  
+  SQL> 
+  SQL>   CREATE OR REPLACE TRIGGER  "BI_DOCTAG"
+    2      before insert on "DOCTAG"
+    3      for each row
+    4    begin
+    5        select "DOCTAG_SEQ".nextval into :NEW.ID from dual;
+    6    end;
+    7  
+    8    /
+      before insert on "DOCTAG"
+                       *
+  ERROR at line 2:
+  ORA-00942: table or view does not exist 
+  
+  
+  SQL>   ALTER TRIGGER  "BI_DOCTAG" ENABLE
+    2    /
+    ALTER TRIGGER  "BI_DOCTAG" ENABLE
+  ,*
+  ERROR at line 1:
+  ORA-04080: trigger 'BI_DOCTAG' does not exist 
+  
+  
+  SQL> Spool off
+#+END_EXAMPLE
