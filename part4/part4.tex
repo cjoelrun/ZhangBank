@@ -1,4 +1,4 @@
-% Created 2012-10-31 Wed 09:49
+% Created 2012-11-08 Thu 11:05
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -16,6 +16,8 @@
 \usepackage{hyperref}
 \tolerance=1000
 \usepackage{minted}
+\usepackage{color}
+\usepackage{listings}
 \usepackage{fullpage}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
 \providecommand{\alert}[1]{\textbf{#1}}
@@ -61,7 +63,7 @@
 
   \begin{figure}[htb]
   \centering
-  \includegraphics[width=.9\linewidth]{"ER Diagram.png}
+  \includegraphics[width=.9\linewidth]{ERDiagram.png}
   \caption{ER Diagram}
   \end{figure}
   
@@ -132,7 +134,7 @@
    provide indexing of Documents based on each Course. All Courses
    are Taken by many Users each. This allows for Users to save which
    classes they're taking.
-\section{Schema}
+\section{Relational Schema}
 \label{sec-3}
 
 
@@ -141,14 +143,14 @@
   \includegraphics[width=.9\linewidth]{Schema.png}
   \caption{Schema Diagram}
   \end{figure}
-\subsection{User}
+\subsection{User Table}
 \label{sec-3-1}
 
 
 \begin{table}[htb]
 \caption{User Table} 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabular}{l|l|l|l}
  \underline{id}  &  username  &  password  &  salt  \\
 \end{tabular}
 \end{center}
@@ -170,14 +172,14 @@
 
 
     BCNF
-\subsection{Role}
+\subsection{Role Table}
 \label{sec-3-2}
 
 
 \begin{table}[htb]
 \caption{Role Table} 
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{l|l}
  \underline{id}  &  name  \\
 \end{tabular}
 \end{center}
@@ -198,14 +200,14 @@
 
 
     BCNF
-\subsection{UserRoles}
+\subsection{UserRoles Table}
 \label{sec-3-3}
 
 
 \begin{table}[htb]
 \caption{UserRole Table} 
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{l|l}
  \underline{*user\_id*}  &  \textbf{role\_id}  \\
 \end{tabular}
 \end{center}
@@ -228,14 +230,14 @@
 
 
     BCNF
-\subsection{Professor}
+\subsection{Professor Table}
 \label{sec-3-4}
 
 
 \begin{table}[htb]
 \caption{Professor Table} 
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{l|l}
  \underline{id}  &  name  \\
 \end{tabular}
 \end{center}
@@ -256,14 +258,14 @@
 
     
     BCNF
-\subsection{Course}
+\subsection{Course Table}
 \label{sec-3-5}
 
    
 \begin{table}[htb]
 \caption{Course Table} 
 \begin{center}
-\begin{tabular}{llll}
+\begin{tabular}{l|l|l|l}
  \underline{id}  &  course\_no.  &  name  &  semester  \\
 \end{tabular}
 \end{center}
@@ -284,14 +286,14 @@
 
 
     BCNF
-\subsection{Takes}
+\subsection{Takes Table}
 \label{sec-3-6}
 
 
 \begin{table}[htb]
 \caption{Takes Table} 
 \begin{center}
-\begin{tabular}{lll}
+\begin{tabular}{l|l|l}
  \underline{id}  &  \textbf{course\_id}  &  \textbf{user\_id}  \\
 \end{tabular}
 \end{center}
@@ -313,14 +315,14 @@
 
 
     BCNF
-\subsection{Teaches}
+\subsection{Teaches Table}
 \label{sec-3-7}
 
 
 \begin{table}[htb]
 \caption{Teaches Table} 
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{l|l}
  \underline{*course\_id*}  &  \textbf{professor\_id}  \\
 \end{tabular}
 \end{center}
@@ -342,14 +344,14 @@
 
 
     BCNF
-\subsection{Document}
+\subsection{Document Table}
 \label{sec-3-8}
 
 
 \begin{table}[htb]
 \caption{Document Table} 
 \begin{center}
-\begin{tabular}{lll}
+\begin{tabular}{l|l|l}
  \underline{id}  &  type  &  date\_submitted  \\
 \end{tabular}
 \end{center}
@@ -370,14 +372,14 @@
 
 
     BCNF 
-\subsection{UserDocs}
+\subsection{UserDocs Table}
 \label{sec-3-9}
 
 
 \begin{table}[htb]
 \caption{UserDoc Table} 
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{l|l}
  \textbf{document\_id}  &  \textbf{user\_id}  \\
 \end{tabular}
 \end{center}
@@ -399,14 +401,14 @@
 
 
     BCNF
-\subsection{Tag}
+\subsection{Tag Table}
 \label{sec-3-10}
 
 
 \begin{table}[htb]
 \caption{Tag Table} 
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{l|l}
  \underline{id}  &  name  \\
 \end{tabular}
 \end{center}
@@ -427,14 +429,14 @@
 
 
     BCNF
-\subsection{DocTag}
+\subsection{DocTag Table}
 \label{sec-3-11}
 
 
 \begin{table}[htb]
 \caption{DocTag Table} 
 \begin{center}
-\begin{tabular}{lll}
+\begin{tabular}{l|l|l}
  \underline{id}  &  \textbf{document\_id}  &  \textbf{tag\_id}  \\
 \end{tabular}
 \end{center}
@@ -468,7 +470,7 @@
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "USERS" 
    (    "ID" NUMBER NOT NULL ENABLE, 
         "SALT" VARCHAR2(45) NOT NULL ENABLE, 
@@ -494,7 +496,7 @@ ALTER TRIGGER  "BI_USERS" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "ROLE" 
    (    "ID" NUMBER, 
         "NAME" VARCHAR2(45), 
@@ -518,7 +520,7 @@ ALTER TRIGGER  "BI_ROLE" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "USERROLE" 
    (    "USER_ID" NUMBER NOT NULL ENABLE, 
         "ROLE_ID" NUMBER NOT NULL ENABLE, 
@@ -546,7 +548,7 @@ ALTER TRIGGER  "BI_USERROLE" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "PROFESSOR" 
    (    "NAME" VARCHAR2(50) NOT NULL ENABLE, 
         "ID" NUMBER(*,0) NOT NULL ENABLE, 
@@ -560,7 +562,7 @@ CREATE TABLE  "PROFESSOR"
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "COURSE" 
    (    "SEMESTER" VARCHAR2(10) NOT NULL ENABLE, 
         "ID" NUMBER(*,0) NOT NULL ENABLE, 
@@ -577,7 +579,7 @@ CREATE TABLE  "COURSE"
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "TAKES" 
    (    "COURSEID" NUMBER NOT NULL ENABLE, 
         "ID" NUMBER NOT NULL ENABLE, 
@@ -606,7 +608,7 @@ ALTER TRIGGER  "BI_TAKES" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "TEACHES" 
    (    "PROFID" NUMBER NOT NULL ENABLE, 
         "COURSEID" NUMBER NOT NULL ENABLE, 
@@ -633,7 +635,7 @@ ALTER TRIGGER  "BI_TEACHES" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "USERDOC" 
    (    "DOCUMENT_ID" NUMBER NOT NULL ENABLE, 
         "USER_ID" NUMBER NOT NULL ENABLE, 
@@ -661,7 +663,7 @@ ALTER TRIGGER  "BI_USERDOC" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "TAG" 
    (    "ID" NUMBER NOT NULL ENABLE, 
         "NAME" VARCHAR2(45) NOT NULL ENABLE, 
@@ -685,7 +687,7 @@ ALTER TRIGGER  "BI_TAG" ENABLE
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 CREATE TABLE  "DOCTAG" 
    (    "ID" NUMBER NOT NULL ENABLE, 
         "DOCUMENT_ID" NUMBER NOT NULL ENABLE, 
@@ -709,14 +711,19 @@ end;
 ALTER TRIGGER  "BI_DOCTAG" ENABLE
 /
 \end{minted}
-\section{Views}
+\section{\textbf{TODO} Views}
 \label{sec-5}
+
+
+\begin{enumerate}
+\item Design at least one view that accesses two or more base tables.
+\end{enumerate}
 \subsection{Takes}
 \label{sec-5-1}
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 select   "COURSE"."ID" as "ID",
          "COURSE"."SEMESTER" as "SEMESTER",
          "COURSE"."TITLE" as "TITLE",
@@ -739,7 +746,7 @@ select   "COURSE"."ID" as "ID",
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 select   "USERS"."ID" as "ID",
          "USERS"."PW" as "PW",
          "USERS"."SALT" as "SALT",
@@ -756,7 +763,7 @@ select   "USERS"."ID" as "ID",
 \label{sec-5-3}
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 select   "DOCUMENT"."ID" as "ID",
          "DOCUMENT"."TYPE" as "TYPE",
          "DOCTAG"."ID" as "ID",
@@ -773,7 +780,7 @@ select   "DOCUMENT"."ID" as "ID",
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 select   "PROFESSOR"."ID" as "ID",
          "DOCCOURSE"."COURSEID" as "COURSEID",
          "DOCCOURSE"."DOCID" as "DOCID",
@@ -801,7 +808,7 @@ group by PROFESSOR.ID
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 select   "DOCCOURSE"."COURSEID" as "COURSEID",
          "DOCCOURSE"."DOCID" as "DOCID",
          "DOCUMENT"."ID" as "ID_1",
@@ -821,7 +828,7 @@ select   "DOCCOURSE"."COURSEID" as "COURSEID",
 
 
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{sql}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{sql}
 select   "USERS"."ID" as "ID",
          "USERS"."SALT" as "SALT",
          "USERS"."PW" as "PW",
@@ -837,9 +844,335 @@ select   "USERS"."ID" as "ID",
 \section{Spool}
 \label{sec-6}
 
+  
 
-  Spool doesn't exist. Here's a screenshot
+\begin{verbatim}
+SQL>   CREATE TABLE  "USERS"
+  2       (    "ID" NUMBER NOT NULL ENABLE,
+  3            "SALT" VARCHAR2(45) NOT NULL ENABLE,
+  4            "PW" VARCHAR2(45) NOT NULL ENABLE,
+  5            "USERNAME" VARCHAR2(50) NOT NULL ENABLE,
+  6             CONSTRAINT "USERS_PK" PRIMARY KEY ("ID") ENABLE
+  7       )
+  8    /
 
-  \includegraphics[width=.9\linewidth]{Spool.png}
+Table created.
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_USERS"
+  2      before insert on "USERS"
+  3      for each row
+  4    begin
+  5        select "USERS_SEQ".nextval into :NEW.ID from dual;
+  6    end;
+  7  
+  8    /
+
+Warning: Trigger created with compilation errors.
+
+SQL>   ALTER TRIGGER  "BI_USERS" ENABLE
+  2    /
+
+Trigger altered.
+
+SQL> 
+SQL>   CREATE TABLE  "ROLE"
+  2       (    "ID" NUMBER,
+  3            "NAME" VARCHAR2(45),
+  4             CONSTRAINT "ROLE_PK" PRIMARY KEY ("ID") ENABLE
+  5       )
+  6    /
+
+Table created.
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_ROLE"
+  2      before insert on "ROLE"
+  3      for each row
+  4    begin
+  5        select "ROLE_SEQ".nextval into :NEW.ID from dual;
+  6    end;
+  7  
+  8    /
+
+Warning: Trigger created with compilation errors.
+
+SQL>   ALTER TRIGGER  "BI_ROLE" ENABLE
+  2    /
+
+Trigger altered.
+
+SQL> 
+SQL>   CREATE TABLE  "USERROLE"
+  2       (    "USER_ID" NUMBER NOT NULL ENABLE,
+  3            "ROLE_ID" NUMBER NOT NULL ENABLE,
+  4             CONSTRAINT "USERROLE_PK" PRIMARY KEY ("USER_ID") ENABLE,
+  5             CONSTRAINT "USERROLE_FK" FOREIGN KEY ("USER_ID")
+  6              REFERENCES  "USERS" ("ID") ENABLE,
+  7             CONSTRAINT "USERROLE_FK2" FOREIGN KEY ("ROLE_ID")
+  8              REFERENCES  "ROLE" ("ID") ENABLE
+  9       )
+ 10    /
+
+Table created.
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_USERROLE"
+  2      before insert on "USERROLE"
+  3      for each row
+  4    begin
+  5        select "USERROLE_SEQ".nextval into :NEW.USER_ID from dual;
+  6    end;
+  7  
+  8    /
+
+Warning: Trigger created with compilation errors.
+
+SQL>   ALTER TRIGGER  "BI_USERROLE" ENABLE
+  2    /
+
+Trigger altered.
+
+SQL> 
+SQL>   CREATE TABLE  "PROFESSOR"
+  2       (    "NAME" VARCHAR2(50) NOT NULL ENABLE,
+  3            "ID" NUMBER(*,0) NOT NULL ENABLE,
+  4            "DEGREE" VARCHAR2(45),
+  5             PRIMARY KEY ("ID") ENABLE
+  6       )
+  7    /
+
+Table created.
+
+SQL> 
+SQL> #+BEGIN_SRC sql
+SP2-0734: unknown command beginning "+BEGIN_SRC..." - rest of line ignored.
+SQL>   CREATE TABLE  "COURSE"
+  2       (    "SEMESTER" VARCHAR2(10) NOT NULL ENABLE,
+  3            "ID" NUMBER(*,0) NOT NULL ENABLE,
+  4            "TITLE" VARCHAR2(45) NOT NULL ENABLE,
+  5            "COURSENUMBER" VARCHAR2(45) NOT NULL ENABLE,
+  6            "ACADEMICLEVEL" NUMBER,
+  7            "SUBJECT" VARCHAR2(50) NOT NULL ENABLE,
+  8             PRIMARY KEY ("ID") ENABLE
+  9       )
+ 10    /
+
+Table created.
+
+SQL> 
+SQL>   CREATE TABLE  "TAKES"
+  2       (    "COURSEID" NUMBER NOT NULL ENABLE,
+  3            "ID" NUMBER NOT NULL ENABLE,
+  4            "USERID" NUMBER NOT NULL ENABLE,
+  5             CONSTRAINT "TAKES_PK" PRIMARY KEY ("ID") ENABLE,
+  6             CONSTRAINT "TAKES_FK" FOREIGN KEY ("COURSEID")
+  7              REFERENCES  "COURSE" ("ID") ENABLE,
+  8             CONSTRAINT "TAKES_FK2" FOREIGN KEY ("USERID")
+  9              REFERENCES  "USERS" ("ID") ENABLE
+ 10       )
+ 11    /
+
+Table created.
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_TAKES"
+  2      before insert on "TAKES"
+  3      for each row
+  4    begin
+  5        select "TAKES_SEQ".nextval into :NEW.ID from dual;
+  6    end;
+  7  
+  8    /
+
+Warning: Trigger created with compilation errors.
+
+SQL>   ALTER TRIGGER  "BI_TAKES" ENABLE
+  2    /
+
+Trigger altered.
+
+SQL> 
+SQL>   CREATE TABLE  "TEACHES"
+  2       (    "PROFID" NUMBER NOT NULL ENABLE,
+  3            "COURSEID" NUMBER NOT NULL ENABLE,
+  4             CONSTRAINT "TEACHES_FK" FOREIGN KEY ("PROFID")
+  5              REFERENCES  "PROFESSOR" ("ID") ENABLE,
+  6             CONSTRAINT "TEACHES_FK2" FOREIGN KEY ("COURSEID")
+  7              REFERENCES  "COURSE" ("ID") ENABLE
+  8       )
+  9    /
+
+Table created.
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_TEACHES"
+  2      before insert on "TEACHES"
+  3      for each row
+  4    begin
+  5        select "TEACHES_SEQ".nextval into :NEW.ID from dual;
+  6    end;
+  7  
+  8    /
+
+Warning: Trigger created with compilation errors.
+
+SQL>   ALTER TRIGGER  "BI_TEACHES" ENABLE
+  2    /
+
+Trigger altered.
+
+SQL> 
+SQL>   CREATE TABLE  "USERDOC"
+  2       (    "DOCUMENT_ID" NUMBER NOT NULL ENABLE,
+  3            "USER_ID" NUMBER NOT NULL ENABLE,
+  4             CONSTRAINT "USERDOC_PK" PRIMARY KEY ("DOCUMENT_ID") ENABLE,
+  5             CONSTRAINT "USERDOC_FK" FOREIGN KEY ("DOCUMENT_ID")
+  6              REFERENCES  "DOCUMENT" ("ID") ENABLE,
+  7             CONSTRAINT "USERDOC_FK2" FOREIGN KEY ("USER_ID")
+  8              REFERENCES  "USERS" ("ID") ENABLE
+  9       )
+ 10    /
+            REFERENCES  "DOCUMENT" ("ID") ENABLE,
+                        *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_USERDOC"
+  2      before insert on "USERDOC"
+  3      for each row
+  4    begin
+  5        select "USERDOC_SEQ".nextval into :NEW.DOCUMENT_ID from dual;
+  6    end;
+  7  
+  8    /
+    before insert on "USERDOC"
+                     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL>   ALTER TRIGGER  "BI_USERDOC" ENABLE
+  2    /
+  ALTER TRIGGER  "BI_USERDOC" ENABLE
+*
+ERROR at line 1:
+ORA-04080: trigger 'BI_USERDOC' does not exist 
+
+
+SQL> 
+SQL>   CREATE TABLE  "TAG"
+  2       (    "ID" NUMBER NOT NULL ENABLE,
+  3            "NAME" VARCHAR2(45) NOT NULL ENABLE,
+  4             CONSTRAINT "TAG_PK" PRIMARY KEY ("ID") ENABLE
+  5       )
+  6    /
+
+Table created.
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_TAG"
+  2      before insert on "TAG"
+  3      for each row
+  4    begin
+  5        select "TAG_SEQ".nextval into :NEW.ID from dual;
+  6    end;
+  7  
+  8    /
+
+Warning: Trigger created with compilation errors.
+
+SQL>   ALTER TRIGGER  "BI_TAG" ENABLE
+  2    /
+
+Trigger altered.
+
+SQL> 
+SQL>   CREATE TABLE  "DOCTAG"
+  2       (    "ID" NUMBER NOT NULL ENABLE,
+  3            "DOCUMENT_ID" NUMBER NOT NULL ENABLE,
+  4            "TAG_ID" NUMBER NOT NULL ENABLE,
+  5             CONSTRAINT "DOCTAG_PK" PRIMARY KEY ("ID") ENABLE,
+  6             CONSTRAINT "DOCTAG_FK" FOREIGN KEY ("DOCUMENT_ID")
+  7              REFERENCES  "DOCUMENT" ("ID") ENABLE,
+  8             CONSTRAINT "DOCTAG_FK2" FOREIGN KEY ("TAG_ID")
+  9              REFERENCES  "TAG" ("ID") ENABLE
+ 10       )
+ 11    /
+            REFERENCES  "DOCUMENT" ("ID") ENABLE,
+                        *
+ERROR at line 7:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL>   CREATE OR REPLACE TRIGGER  "BI_DOCTAG"
+  2      before insert on "DOCTAG"
+  3      for each row
+  4    begin
+  5        select "DOCTAG_SEQ".nextval into :NEW.ID from dual;
+  6    end;
+  7  
+  8    /
+    before insert on "DOCTAG"
+                     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL>   ALTER TRIGGER  "BI_DOCTAG" ENABLE
+  2    /
+  ALTER TRIGGER  "BI_DOCTAG" ENABLE
+*
+ERROR at line 1:
+ORA-04080: trigger 'BI_DOCTAG' does not exist 
+
+
+SQL> Spool off
+\end{verbatim}
+\section{\textbf{TODO} SQL Queries}
+\label{sec-7}
+
+
+\begin{enumerate}
+\item Multiple table query;
+\item Nested query (both correlated and not correlated);
+\item Query using Union, Intersect, and minus
+\item Query using exist, not exist, IN, NOT IN, ALL, etc.;
+\item Query with aggregate functions, group by, sort by, and having; (f) Query that has a complex from clause; and
+\item Query using a view.
+\end{enumerate}
+\subsection{\textbf{TODO} Updates}
+\label{sec-7-1}
+
+
+\begin{enumerate}
+\item Insert tuples to a table (both single tuple and by a query);
+\item Delete tuples from a table (both single tuple and by a query);
+\item Updates that changes existing tuples (both single tuple and by a query); and
+\item Updates that cause a trigger to be fired.
+\end{enumerate}
+\section{\textbf{TODO} Triggers}
+\label{sec-8}
+
+
+\begin{enumerate}
+\item Design and test at least one trigger.
+\end{enumerate}
+\section{\textbf{TODO} Investigation Report}
+\label{sec-9}
+
+
+\begin{enumerate}
+\item Design and perform some experiments to investigate view
+     update. These experiments should try to perform various types of
+     update on various type of views, and investigate if and how data
+     can be updated through using views.
+\item Test queries that can be used in your application program. Think
+     how to retrieve data to provide services of your application
+     program.
+\end{enumerate}
 
 \end{document}

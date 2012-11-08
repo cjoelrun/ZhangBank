@@ -72,12 +72,18 @@
      "sec-5-4"
      "sec-5-5"
      "sec-5-6"
-     "sec-6")
+     "sec-6"
+     "sec-7"
+     "sec-7-1"
+     "sec-8"
+     "sec-9")
     (TeX-add-symbols
      '("alert" 1)
      "HRule")
     (TeX-run-style-hooks
      "fullpage"
+     "listings"
+     "color"
      "minted"
      "hyperref"
      "amssymb"

@@ -99,6 +99,7 @@
 
    #+CAPTION: User Table
    | _id_ | username | password | salt |
+   | /    | <        | <        | <    |
 
 *** Keys
     
@@ -119,6 +120,7 @@
 
    #+CAPTION: Role Table
    | _id_ | name |
+   | /    | <    |
 
 *** Keys
     
@@ -138,6 +140,7 @@
 
    #+CAPTION: UserRole Table
    | _*user\_id*_ | *role\_id* |
+   | /            | <          |
 
 *** Keys
     
@@ -158,6 +161,7 @@
 
    #+CAPTION: Professor Table
    | _id_ | name |
+   | /    | <    |
 
 *** Keys
     
@@ -176,6 +180,7 @@
    
    #+CAPTION: Course Table
    | _id_ | course\_no. | name | semester |
+   | /    | <           | <    | <        |
 
 *** Keys
     
@@ -195,6 +200,7 @@
 
    #+CAPTION: Takes Table
    | _id_ | *course\_id* | *user\_id* |
+   | /    | <            | <          |
 
 *** Keys
     
@@ -215,6 +221,7 @@
 
    #+CAPTION: Teaches Table
    | _*course\_id*_ | *professor\_id* |
+   | /              | <               |
 
 *** Keys
     
@@ -235,6 +242,7 @@
 
    #+CAPTION: Document Table
    | _id_ | type | date\_submitted |
+   | /    | <    | <               |
 
 *** Keys
     
@@ -254,6 +262,7 @@
 
    #+CAPTION: UserDoc Table
    | *document\_id* | *user\_id* |
+   | /              | <          |
 
 *** Keys
     
@@ -274,6 +283,7 @@
 
    #+CAPTION: Tag Table
    | _id_ | name |
+   | /    | <    |
 
 *** Keys
     
@@ -293,6 +303,7 @@
 
    #+CAPTION: DocTag Table
    | _id_ | *document\_id* | *tag\_id* |
+   | /    | <              | <         |
    
 *** Keys
     
@@ -537,7 +548,9 @@
   /
 #+END_SRC
 
-* Views
+* TODO Views
+
+  1. Design at least one view that accesses two or more base tables.
 
 ** Takes
 
@@ -938,3 +951,42 @@
   
   SQL> Spool off
 #+END_EXAMPLE
+
+* TODO SQL Queries
+
+  1. Multiple table query;
+
+  2. Nested query (both correlated and not correlated);
+
+  3. Query using Union, Intersect, and minus
+
+  4. Query using exist, not exist, IN, NOT IN, ALL, etc.;
+
+  5. Query with aggregate functions, group by, sort by, and having; (f) Query that has a complex from clause; and
+
+  6. Query using a view.
+
+** TODO Updates
+
+   1. Insert tuples to a table (both single tuple and by a query);
+
+   2. Delete tuples from a table (both single tuple and by a query);
+
+   3. Updates that changes existing tuples (both single tuple and by a query); and
+
+   4. Updates that cause a trigger to be fired.   
+
+* TODO Triggers
+
+  1. Design and test at least one trigger.
+
+* TODO Investigation Report
+
+  1. Design and perform some experiments to investigate view
+     update. These experiments should try to perform various types of
+     update on various type of views, and investigate if and how data
+     can be updated through using views.
+
+  2. Test queries that can be used in your application program. Think
+     how to retrieve data to provide services of your application
+     program.
