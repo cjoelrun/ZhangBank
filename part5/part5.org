@@ -321,7 +321,11 @@
     
 * Database
   
-** User
+** TODO User
+
+   1. "You should be able to use nextval without using a trigger. What
+      if the insert failed after souce row has ben inserted? Where's
+      sequence definition?
 
 #+BEGIN_SRC sql
   CREATE TABLE  "USERS" 
@@ -548,7 +552,9 @@
   /
 #+END_SRC
 
-* Views
+* TODO Views
+
+  1. Why are these views?
 
 ** Takes
 
@@ -916,9 +922,11 @@
   SQL> Spool off
 #+END_EXAMPLE
 
-* SQL Queries
+* TODO SQL Queries
+  
+  1. Missing required queries
 
-     Select all the Users enrolled in Systems Programming.
+  Select all the Users enrolled in Systems Programming.
      
 #+BEGIN_SRC sql
   select   "USERS"."ID" as "ID",
@@ -970,3 +978,39 @@
   ALTER TRIGGER  "DELETEUSER" ENABLE
   /
 #+END_SRC   
+
+* TODO View Update Report
+  
+  1. Include a two-page report describing your experiments with view
+     update including the design of the experiments, your
+     observations, and your conclusions.
+
+* TODO Function Lists
+     
+  1. A list of originally proposed functions and a list of actually
+     implemented functions.
+
+* TODO Program Source Code
+
+  1. A script of your PL/SQL package. and a copy of your program
+     source code.
+
+* TODO Script and Screen Shots
+
+  1. Include a script that shows the compilation and execution of your
+     program. You should show, within a user session, all functions
+     currently supported by your application. If your program provides
+     a graphical user interface, include some screen shots as well.
+
+* TODO Summary Statement of the Entire Project
+     
+  1. You should include a section to summarize the team's activities
+     during the project; discuss your experiences with this project;
+     pros and cons of your design and implementation methodology, and
+     aspects of the team work. You should comment on whether and how
+     this project contributes towards your learning of database
+     subjects and discuss possible future extensions of your
+     project. Optionally, you may comment on how each team members
+     contributes to the overall project. Please be specific and
+     insightful.
+

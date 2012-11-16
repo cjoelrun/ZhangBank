@@ -1,4 +1,4 @@
-% Created 2012-11-13 Tue 00:45
+% Created 2012-11-16 Fri 09:41
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -463,9 +463,15 @@
 \label{sec-4}
 
   
-\subsection{User}
+\subsection{\textbf{TODO} User}
 \label{sec-4-1}
 
+
+\begin{enumerate}
+\item ``You should be able to use nextval without using a trigger. What
+      if the insert failed after souce row has ben inserted? Where's
+      sequence definition?
+\end{enumerate}
 
 
 \begin{minted}[]{sql}
@@ -709,8 +715,13 @@ end;
 ALTER TRIGGER  "BI_DOCTAG" ENABLE
 /
 \end{minted}
-\section{Views}
+\section{\textbf{TODO} Views}
 \label{sec-5}
+
+
+\begin{enumerate}
+\item Why are these views?
+\end{enumerate}
 \subsection{Takes}
 \label{sec-5-1}
 
@@ -1091,11 +1102,15 @@ SQL>   ALTER TRIGGER  "BI_DOCTAG" ENABLE
 
 SQL> Spool off
 \end{verbatim}
-\section{SQL Queries}
+\section{\textbf{TODO} SQL Queries}
 \label{sec-7}
 
+  
+\begin{enumerate}
+\item Missing required queries
+\end{enumerate}
 
-     Select all the Users enrolled in Systems Programming.
+  Select all the Users enrolled in Systems Programming.
      
 
 \begin{minted}[]{sql}
@@ -1159,5 +1174,55 @@ end;
 ALTER TRIGGER  "DELETEUSER" ENABLE
 /
 \end{minted}
+\section{\textbf{TODO} View Update Report}
+\label{sec-9}
+
+  
+\begin{enumerate}
+\item Include a two-page report describing your experiments with view
+     update including the design of the experiments, your
+     observations, and your conclusions.
+\end{enumerate}
+\section{\textbf{TODO} Function Lists}
+\label{sec-10}
+
+     
+\begin{enumerate}
+\item A list of originally proposed functions and a list of actually
+     implemented functions.
+\end{enumerate}
+\section{\textbf{TODO} Program Source Code}
+\label{sec-11}
+
+
+\begin{enumerate}
+\item A script of your PL/SQL package. and a copy of your program
+     source code.
+\end{enumerate}
+\section{\textbf{TODO} Script and Screen Shots}
+\label{sec-12}
+
+
+\begin{enumerate}
+\item Include a script that shows the compilation and execution of your
+     program. You should show, within a user session, all functions
+     currently supported by your application. If your program provides
+     a graphical user interface, include some screen shots as well.
+\end{enumerate}
+\section{\textbf{TODO} Summary Statement of the Entire Project}
+\label{sec-13}
+
+     
+\begin{enumerate}
+\item You should include a section to summarize the team's activities
+     during the project; discuss your experiences with this project;
+     pros and cons of your design and implementation methodology, and
+     aspects of the team work. You should comment on whether and how
+     this project contributes towards your learning of database
+     subjects and discuss possible future extensions of your
+     project. Optionally, you may comment on how each team members
+     contributes to the overall project. Please be specific and
+     insightful.
+\end{enumerate}
 
 \end{document}

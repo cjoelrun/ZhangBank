@@ -1,4 +1,4 @@
-(TeX-add-style-hook "part4"
+(TeX-add-style-hook "part5"
  (lambda ()
     (LaTeX-add-labels
      "sec-1"
@@ -76,7 +76,12 @@
      "sec-7"
      "sec-7-1"
      "sec-8"
-     "sec-8-1")
+     "sec-8-1"
+     "sec-9"
+     "sec-10"
+     "sec-11"
+     "sec-12"
+     "sec-13")
     (TeX-add-symbols
      '("alert" 1)
      "HRule")

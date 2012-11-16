@@ -1,0 +1,84 @@
+Part Five: Application Implementation and Testing
+#+AUTHOR: Weining Zhang
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+- Total Points: 100 
+- Total Weight: 6% 
+- Due: Friday, November 28, 2012, in class
+
+* Description
+
+  In this part, you will implement and test your application
+  program. Specifically, your tasks are the following.
+
+  1. PL/SQL Package
+     
+     You should create a PL/SQL package including at least one
+     procedure and one function. These procedures and functions should
+     implement some of the application functionality and be used as
+     embedded SQL in your application.
+
+  2. Application Coding and Testing
+
+     Implement your application program in Java/JDBC, Pro*C/C++, or
+     some other language. Specific requirements of the program are
+     listed below.
+
+     1. It should implement the functionality specified in the
+        conceptual design of the application in ( revised) Part One
+        report. Specifically, it should implement functions for data
+        update, various predefined or dynamic queries, and business
+        rule enforcement.
+
+     2. It should provide either a menu driven or a graphical
+        (including web) user interface. It should be user-friendly.
+
+     3. The program should handle exceptions and errors gracefully.
+
+     4. If you program in Pro*C/C++, at lease one subprogram should
+        use a cursor (in addition to any cursor used in your PL/SQL
+        package). If you program in Java/JDBC, this should be done as
+        result sets.
+
+* What to Hand In
+  
+  Hand in a well-formatted written final report include following
+  items. (I will keep the final report on my file so you should make
+  copies for yourselves)
+
+  1. Revised Report of Previous Parts
+     
+     Since this is the final report, it should be complete. Therefore,
+     it should include a fresh copy of revised reports of ALL the
+     previous Parts, ordered chronically.
+
+  2. Function Lists
+     
+     A list of originally proposed functions and a list of actually
+     implemented functions.
+
+  3. Program Source Code
+
+     A script of your PL/SQL package. and a copy of your program
+     source code.
+
+  4. Script and Screen Shots
+     
+     Include a script that shows the compilation and execution of your
+     program. You should show, within a user session, all functions
+     currently supported by your application. If your program provides
+     a graphical user interface, include some screen shots as well.
+
+  5. Summary Statement of the Entire Project
+     
+     You should include a section to summarize the team's activities
+     during the project; discuss your experiences with this project;
+     pros and cons of your design and implementation methodology, and
+     aspects of the team work. You should comment on whether and how
+     this project contributes towards your learning of database
+     subjects and discuss possible future extensions of your
+     project. Optionally, you may comment on how each team members
+     contributes to the overall project. Please be specific and
+     insightful.
+
